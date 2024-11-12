@@ -15,6 +15,7 @@ export const AddDoctor = () => {
   const [degree, setDegree] = useState("");
   const [line1, setLine1] = useState("");
   const [line2, setLine2] = useState("");
+  const [fixedId, setFixedId] = useState("")
 
   const { atoken, backendUrl } = useContext(AdminContext);
 
@@ -41,7 +42,7 @@ export const AddDoctor = () => {
         JSON.stringify({ line1: line1, line2: line2 })
       );
       formData.append("degree", degree);
-
+      formData.append("fixedId", fixedId);
 
       const { data } = await axios.post(backendUrl + "/admin/add-doctor", formData, {
         headers: { atoken },
@@ -57,6 +58,7 @@ export const AddDoctor = () => {
         setLine1("")
         setLine2("")
         setFee("")
+        setFixedId("")
       } else {
         toast.error(data.message);
       }
@@ -207,6 +209,16 @@ export const AddDoctor = () => {
                 placeholder="line2"
                 required
               />
+            </div>
+            <div>
+              <p>Video call ID</p>
+              <input 
+                className="border w-full rounded px-4 py-2 mb-2"
+                onChange={(e) => setFixedId(e.target.value)}
+                value={fixedId}
+                type="text"
+                placeholder="FixedId"
+                required/>
             </div>
           </div>
         </div>

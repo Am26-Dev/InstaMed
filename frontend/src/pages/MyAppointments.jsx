@@ -23,7 +23,7 @@ const MyAppointments = () => {
 
       if(data.success){
         setAppointments(data.appointments.reverse())
-        console.log(data.appointments)
+        // console.log(data.appointments)
       }
 
     } catch (e) {
@@ -89,6 +89,11 @@ const MyAppointments = () => {
                 {slotDateFormat(item.slotDate)}| {item.slotTime}
               </p>
               <button className="px-4 py-2 bg-purple-200 text-gray-500 rounded-full">{item.appointmentType} Appointment</button>
+                {
+                  item.appointmentType === "online" ? <div className="bg-primary text-white inline-block px-5 py-2 rounded-full ml-5">
+                    <p>Video callID:-<span>{item.docData.fixedId}</span></p>
+                  </div> : ""
+                }
             </div>
 
             <div>

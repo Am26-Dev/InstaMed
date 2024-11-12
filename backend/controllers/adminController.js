@@ -30,11 +30,11 @@ const adminLogin = async (req, res) => {
 // Create a new doctor
 const createDoctor = async (req, res) => {
     try {
-      const { name, email, password,  speciality, about,  address, fees , degree, experience } = req.body;
+      const { name, email, password,  speciality, about,  address, fees , degree, experience, fixedId } = req.body;
       
       const imageFile = req.file;
 
-      if(!name || !email || !password || !speciality ||  !address || !degree || !fees ||!about){
+      if(!name || !email || !password || !speciality ||  !address || !degree || !fees ||!about || !fixedId){
         return res.json({success: false, message: "Fill all details"})
       }
 
@@ -66,6 +66,7 @@ const createDoctor = async (req, res) => {
         degree,
         experience,
         fees,
+        fixedId,
         date: Date.now(),
       });
 

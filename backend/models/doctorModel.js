@@ -60,6 +60,11 @@ const doctorSchema = new mongoose.Schema(
       type: Object,
       default: {},
     },
+    fixedId: { // This ID is used to link a user to a socket
+      type: String,
+      unique: true,
+      required: true,
+    },
   },
   { minimize: false }
 );
