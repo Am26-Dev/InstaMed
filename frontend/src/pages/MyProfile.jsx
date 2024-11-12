@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { AppContext } from "../context/AppContext";
 import { assets } from "../assets/assets.js";
 import axios from "axios";
@@ -42,6 +42,10 @@ const MyProfile = () => {
       toast.error(e.message);
     }
   };
+
+  useEffect(()=>{
+    console.log(userData)
+  },[])
 
   return (
     userData && (
@@ -115,39 +119,93 @@ const MyProfile = () => {
             <p className="font-medium">Address:</p>
             {isEdit ? (
               <p>
-                {/* ==================line 1============================== */}
+                {/* ==================housenumber============================== */}
                 <input
                   className="bg-gray-50"
                   onChange={(e) =>
                     setUserData((prev) => ({
                       ...prev,
-                      address: { ...prev.address, line1: e.target.value },
+                      address: { ...prev.address, housenumber: e.target.value },
                     }))
                   }
-                  value={userData.address.line1}
+                  value={userData.address.housenumber}
+                  placeholder="House number"
+                  type="text"
+                />
+
+                <input
+                  className="bg-gray-50"
+                  onChange={(e) =>
+                    setUserData((prev) => ({
+                      ...prev,
+                      address: { ...prev.address, locality: e.target.value },
+                    }))
+                  }
+                  value={userData.address.locality}
+                  placeholder="Locality"
                   type="text"
                 />
 
                 <br />
 
-                {/* ====================line 2 ======================= =*/}
+                {/* ====================locality======================= =*/}
                 <input
                   className="bg-gray-50"
                   onChange={(e) =>
                     setUserData((prev) => ({
                       ...prev,
-                      address: { ...prev.address, line2: e.target.value },
+                      address: { ...prev.address, district: e.target.value },
                     }))
                   }
-                  value={userData.address.line2}
+                  value={userData.address.district}
+                  placeholder="District"
                   type="text"
                 />
-              </p>
+                 {/* ====================city======================= =*/}
+                <input
+                  className="bg-gray-50"
+                  onChange={(e) =>
+                    setUserData((prev) => ({
+                      ...prev,
+                      address: { ...prev.address, city: e.target.value },
+                    }))
+                  }
+                  value={userData.address.city}
+                  placeholder="City"
+                  type="text"
+                />
+                 {/* ====================state======================= =*/}
+                <input
+                  className="bg-gray-50"
+                  onChange={(e) =>
+                    setUserData((prev) => ({
+                      ...prev,
+                      address: { ...prev.address, state: e.target.value },
+                    }))
+                  }
+                  value={userData.address.state}
+                  placeholder="State"
+                  type="text"
+                />
+                 {/* ====================country======================= =*/}
+                <input
+                  className="bg-gray-50"
+                  onChange={(e) =>
+                    setUserData((prev) => ({
+                      ...prev,
+                      address: { ...prev.address, country: e.target.value },
+                    }))
+                  }
+                  value={userData.address.country}
+                  placeholder="country"
+                  type="text"
+                />
+                </p>
             ) : (
               <p className="text-gray-500">
-                {userData.address.line1}
+                {userData.address.housenumber}, {userData.address.locality} , {userData.address.district} , {userData.address.city}
                 <br />
-                {userData.address.line2}
+                {userData.address.state} , {userData.address.country}
               </p>
             )}
           </div>

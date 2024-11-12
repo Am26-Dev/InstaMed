@@ -20,7 +20,14 @@ const userSchema = new mongoose.Schema({
   },
   address: {
     type: Object,
-    default: {line1: "", line2: ""},
+    default: {
+      housenumber : "",
+      locality: "",
+      district: "",
+      city: "",
+      state: "",
+      country: "",
+    },
   },
   phone: {
     type: Number,

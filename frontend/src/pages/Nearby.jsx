@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import "leaflet/dist/leaflet.css";
 import { MapContainer, Marker, TileLayer, Popup, useMap } from "react-leaflet";
 import { Icon } from "leaflet";
@@ -15,35 +15,54 @@ export const Nearby = () => {
   const [markerPosition, setMarkerPosition] = useState(null); // State for the single marker position
   const [nearbyPlaces, setNearbyPlaces] = useState([]);
   const { loadUserProfileData, userData } = useContext(AppContext)
-
-  // const markers = [
-  //   {
-  //     geocode: [28.61957, 77.088104],
-  //     popUp: "Hello, I am popup 1",
-  //   },
-  //   {
-  //     geocode: [28.59214, 77.046051],
-  //     popUp: "Hello, I am popup 2",
-  //   },
-  //   {
-  //     geocode: [28.636944, 77.052849],
-  //     popUp: "Hello, I am popup 3",
-  //   },
-  //   {
-  //     geocode: [28.609674, 77.089539],
-  //     popUp: "Hello, I am popup 4",
-  //   },
-  // ];
-
-  useEffect(()=>{
-    if(!userData){
-      loadUserProfileData()
+  
+  useEffect(() => {
+    if (!userData) {
+      loadUserProfileData();
+      return;
     }
-  },[userData, loadUserProfileData])
+  
+    if (userData.address && userData.address.locality) {
+  
+      // Build a query using the relevant parts
+      const locality = userData.address.locality // e.g., "Janakpuri"
+      const district = userData.address.district || ""; // e.g., "West Delhi"
+      const state =userData.address.state || ""; // e.g., "Delhi"
+      const country =userData.address.country || ""; // e.g., "India"
+  
+      const searchQuery = `${locality}, ${district}, ${state}, ${country}`.trim();
+      console.log("Search query:", searchQuery); // Debug: log the constructed search query
+  
+      const fetchCoordinates = async () => {
+        try {
+          const response = await axios.get(
+            `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(searchQuery)}&format=json&addressdetails=1&limit=1`
+          );
+          
+          console.log("API Response:", response.data); // Debug: log the response from API
+  
+          if (response.data.length > 0) {
+            const { lat, lon } = response.data[0];
+            // console.log("Fetched coordinates:", lat, lon);
+  
+            setUserPosition({ latitude: parseFloat(lat), longitude: parseFloat(lon) });
+            setMarkerPosition([parseFloat(lat), parseFloat(lon)]);
+            fetchNearbyPlaces(lat, lon); // Fetch nearby places using the coordinates
+          } else {
+            console.error("No results found for address:", searchQuery);
+          }
+        } catch (error) {
+          console.error("Error fetching coordinates:", error);
+        }
+      };
+  
+      fetchCoordinates();
+    }
+  }, [userData, loadUserProfileData]);
+  
 
-  if (!userData) { return <p>Loading user data...</p>; }
+  // console.log(userData.address)
 
-  console.log(userData.address)
   const customIcon = new Icon({
     iconUrl: "/marker.png",
     iconSize: [40, 40],
@@ -176,7 +195,7 @@ export const Nearby = () => {
         {/* Display only a single marker at the searched location */}
         {markerPosition && (
           <Marker position={markerPosition} icon={customIcon}>
-            <Popup>{searchQuery}</Popup>
+            <Popup>Your location</Popup>
           </Marker>
         )}
         {/* Markers for nearby places */}
@@ -196,4 +215,3 @@ export const Nearby = () => {
   );
 };
 
-// export default Nearby;
