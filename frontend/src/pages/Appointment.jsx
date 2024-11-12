@@ -16,6 +16,8 @@ const Appointment = () => {
   const [docSlots, setDocSlots] = useState([]);
   const [slotIndex, setSlotIndex] = useState(0);
   const [slotTime, setSlotTime] = useState("");
+  const [appointmentType, setAppointmentType] = useState("in-person")
+
 
   const fetchDocInfo = async () => {
     const docInfo = doctors.find((doc) => doc._id === docId);
@@ -102,7 +104,7 @@ const Appointment = () => {
 
       const { data } = await axios.post(
         backendUrl + "/user/book-appo",
-        { docId, slotDate, slotTime },
+        { docId, slotDate, slotTime, appointmentType },
         { headers: { token } }
       );
 
@@ -210,6 +212,29 @@ const Appointment = () => {
                 </p>
               ))}
           </div>
+
+          <div className="flex gap-5 mt-5">
+            <button
+              onClick={() => setAppointmentType("in-person")}
+              className={`px-5 py-2 rounded-full border border-gray-300 ${
+                appointmentType === "in-person"
+                  ? "bg-primary text-white"
+                  : "bg-white text-gray-900"
+              }`}
+            >
+              In-Person
+            </button>
+
+            <button
+              onClick={() => setAppointmentType("Online")}
+              className={`px-5 py-2 rounded-full border border-gray-300 ${
+                appointmentType === "online" ? "bg-primary text-white" : "bg-white text-gray-900"
+              }`}
+            >
+              Online
+            </button>
+          </div>
+
           <button
             onClick={bookAppointment}
             className="bg-primary text-white text-sm font-light px-14 py-3 rounded-full my-5"

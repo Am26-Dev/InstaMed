@@ -25,11 +25,12 @@ export const AllAppointments = () => {
       <p className="mb-3 text-lg font-medium">All Appointments</p>
 
       <div className="bg-white border rounded text-sm max-h-[80vh] min-h-[60vh] overflow-y-scroll">
-        <div className="hidden sm:grid grid-cols-[0.5fr_3fr_1fr_3fr_3fr_1fr_1fr] grid-flow-col py-3 px-6 border-b">
+        <div className="hidden sm:grid grid-cols-[0.5fr_3fr_1fr_3fr_3fr_1fr_1fr_1fr] grid-flow-col py-3 px-6 border-b">
           <p>#</p>
           <p>Patient</p>
           <p>Age</p>
           <p>Date & Time</p>
+          <p>Appointment type</p>
           <p>Doctor</p>
           <p>Fees</p>
           <p>Actions</p>
@@ -37,7 +38,7 @@ export const AllAppointments = () => {
 
         {appointments.map((item, index) => (
           <div
-            className={`flex flex-wrap justify-between max-sm:gap-2 sm:grid sm:grid-cols-[0.5fr_3fr_1fr_3fr_3fr_1fr_1fr] items-center text-gray-500 py-3 px-6 border-b ${
+            className={`flex flex-wrap justify-between max-sm:gap-2 sm:grid sm:grid-cols-[0.5fr_3fr_1fr_3fr_3fr_1fr_1fr_1fr] items-center text-gray-500 py-3 px-6 border-b ${
               item.cancelled ? "bg-red-100" : "hover:bg-green-50"
             }`}
             key={index}
@@ -64,6 +65,7 @@ export const AllAppointments = () => {
               />{" "}
               <p>{item.docData.name}</p>
             </div>
+            <p className="px-4 text-center whitespace-nowrap py-2 rounded-full bg-purple-500 text-white mr-5">{item.appointmentType}</p>
             <p>
               {currency}
               {item.amount}

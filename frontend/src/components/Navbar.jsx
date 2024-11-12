@@ -46,7 +46,7 @@ const Navbar = () => {
       </ul>
       <div className="flex item-center gap-4">
         {token && userData ? (
-          <div className="flex items-center gap-2 cursor-pointer group relative">
+          <div className="flex items-center gap-2 cursor-pointer group relative" style={{zIndex: "1000"}}>
             <img className="w-8 rounded-full" src={userData.image} alt="" />
             <img className="w-2.5" src={assets.dropdown_icon} alt="" />
             <div className="absolute top-0 right-0 pt-14 text-base font-weight text-gray-600 z-20 hidden group-hover:block">

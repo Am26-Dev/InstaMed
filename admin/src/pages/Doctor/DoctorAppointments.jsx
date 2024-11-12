@@ -26,19 +26,20 @@ export const DoctorAppointments = () => {
       <p className="mb-3 text-lg font-medium">All Appointments</p>
 
       <div className="bg-white border rounded text-sm max-h-[80vh] min-h[60vh] overflow-y-scroll">
-        <div className="max-sm:hidden grid grid-cols-[0.5fr_2fr_1fr_1fr_3fr_1fr_1fr] gap-1 py-3 px-6 border-b">
+        <div className="max-sm:hidden grid grid-cols-[0.5fr_2fr_1fr_1fr_3fr_1fr_1fr_1fr] gap-1 py-3 px-6 border-b">
           <p>#</p>
           <p>Patient</p>
           <p>Payment</p>
           <p>Age</p>
           <p>Date & Time</p>
+          <p>Appointment Type</p>
           <p>Fees</p>
           <p>Action</p>
         </div>
 
         {appointments.reverse().map((item, index) => (
           <div
-            className="flex flex-wrap justify-between max-sm:gap-5 max-sm:text-base sm:grid grid-cols-[0.5fr_2fr_1fr_1fr_3fr_1fr_1fr] gap-1 items-center text-gray-500 py-6 border-b hover:bg-gray-100"
+            className="flex flex-wrap justify-between max-sm:gap-5 max-sm:text-base sm:grid grid-cols-[0.5fr_2fr_1fr_1fr_3fr_1fr_1fr_1fr] gap-1 items-center text-gray-500 py-6 border-b hover:bg-gray-100"
             key={index}
           >
             <p className="max-sm:hidden">{index + 1}</p>
@@ -59,6 +60,7 @@ export const DoctorAppointments = () => {
             <p>
               {slotDateFormat(item.slotDate)}, {item.slotTime}
             </p>
+            <p className="border border-gray-400 text-center py-2 rounded-full mr-5 text-white bg-blue-500">{item.appointmentType}</p>
             <p>
               {currency}
               {item.amount}

@@ -72,6 +72,10 @@ const appointmentSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  appointmentType : {
+    type: String,
+    default: "in-person",
+  },
   cancelled: {
     type: Boolean,
     default: false,

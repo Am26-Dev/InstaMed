@@ -88,9 +88,11 @@ const MyAppointments = () => {
                 </span>
                 {slotDateFormat(item.slotDate)}| {item.slotTime}
               </p>
+              <button className="px-4 py-2 bg-purple-200 text-gray-500 rounded-full">{item.appointmentType} Appointment</button>
             </div>
 
-            <div></div>
+            <div>
+            </div>
 
             <div className="flex flex-col gap-2 justify-end">
               {

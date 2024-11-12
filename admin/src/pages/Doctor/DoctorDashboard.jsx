@@ -82,6 +82,7 @@ export const DoctorDashboard = () => {
                     {slotDateFormat(item.slotDate)}
                   </p>
                 </div>
+                <button className="border border-gray-400 text-center px-5 py-2 rounded-full bg-blue-500 text-white mr-5" >{item.appointmentType}</button>
                 {item.cancelled ? (
                   <p className="text-red-400 text-xs font-medium">Cancelled</p>
                 ) : item.isCompleted ? (

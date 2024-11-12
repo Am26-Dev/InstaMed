@@ -141,7 +141,7 @@ const updateProfile = async (req, res) => {
 const bookAppointment = async (req, res) => {
     try {
         
-        const  { userId, docId, slotDate, slotTime } = req.body
+        const  { userId, docId, slotDate, slotTime, appointmentType } = req.body
 
        const docData = await doctorModel.findById(docId).select("-password")
 
@@ -176,7 +176,9 @@ const bookAppointment = async (req, res) => {
             amount: docData.fees,
             slotTime,
             slotDate,
-            date: Date.now()
+            date: Date.now(),
+            appointmentType: appointmentType || "in-person",
+            
         }
 
 
