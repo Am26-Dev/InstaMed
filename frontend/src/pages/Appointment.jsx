@@ -38,14 +38,14 @@ const Appointment = () => {
       // setting end time of the date
       let endTime = new Date();
       endTime.setDate(today.getDate() + i);
-      endTime.setHours(21, 0, 0, 0);
+      endTime.setHours(22, 0, 0, 0);
 
       // setting hours
       if (today.getDate() === currentDate.getDate()) {
         currentDate.setHours(
           currentDate.getHours() > 10 ? currentDate.getHours() + 1 : 10
         );
-        currentDate.setMinutes(currentDate.getMinutes() > 30 ? 30 : 0);
+        currentDate.setMinutes(currentDate.getMinutes() > 15 ? 15 : 0);
       } else {
         currentDate.setHours(10);
         currentDate.setMinutes(0);
@@ -80,7 +80,7 @@ const Appointment = () => {
           });
         }
 
-        currentDate.setMinutes(currentDate.getMinutes() + 30);
+        currentDate.setMinutes(currentDate.getMinutes() + 15);
       }
 
       setDocSlots((prev) => [...prev, timeSlots]);
@@ -226,7 +226,7 @@ const Appointment = () => {
             </button>
 
             <button
-              onClick={() => setAppointmentType("Online")}
+              onClick={() => setAppointmentType("online")}
               className={`px-5 py-2 rounded-full border border-gray-300 ${
                 appointmentType === "online" ? "bg-primary text-white" : "bg-white text-gray-900"
               }`}

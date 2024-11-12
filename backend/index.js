@@ -6,11 +6,13 @@ import { connectCloudinary } from "./config/cloud.js";
 import adminRouter from "./routes/adminRoute.js";
 import userRouter from "./routes/userRoutes.js";
 import doctorRouter from "./routes/doctorRoutes.js";
+// import { scheduleOnlineAppointmentReminders } from "./controllers/userController.js";
 
 const app = express();
 const port = 8080;
 connectDB()
 connectCloudinary()
+// scheduleOnlineAppointmentReminders()
 
 app.use(express.json())
 app.use(cors())

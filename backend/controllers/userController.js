@@ -5,6 +5,7 @@ import jwt from "jsonwebtoken";
 import { v2 as cloudinary } from "cloudinary";
 import doctorModel from "../models/doctorModel.js";
 import appointmentModel from "../models/appointmentModel.js";
+// import { sendEmail } from "../utils/sendEmail.js";
 // import razorpay from "razorpay"
 
 const loginUser = async (req, res) => {
@@ -197,6 +198,31 @@ const bookAppointment = async (req, res) => {
     }
 }
 
+// Schedule online appointment reminders function
+// const scheduleOnlineAppointmentReminders = () => {
+//     setInterval(async () => {
+//       const now = new Date();
+//       const upcomingAppointments = await appointmentModel.find({
+//         appointmentType: "online",
+//         date: { $gte: now, $lte: new Date(now.getTime() + 15 * 60 * 1000) } // 15 mins before
+//       });
+  
+//       upcomingAppointments.forEach(async (appointment) => {
+//         try {
+//           const user = await userModel.findById(appointment.userId); // Fetch user by userId
+//           if (user && user.email) {
+//             await sendEmail({
+//               to: user.email,
+//               subject: "Online Appointment Reminder",
+//               text: `This is a reminder for your online appointment scheduled at ${appointment.date}.`,
+//             });
+//           }
+//         } catch (error) {
+//           console.error("Error sending reminder email:", error);
+//         }
+//       });
+//     }, 5 * 60 * 1000); // Run every 5 minutes
+//   };
 
 // ----------------listing all appointment for user to see upcoming and previous appointments
 const listAllAppointments = async (req, res) => {
