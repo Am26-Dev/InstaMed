@@ -14,6 +14,7 @@ import { DoctorContext } from "./context/doctorContext";
 import { DoctorDashboard } from "./pages/Doctor/DoctorDashboard";
 import { DoctorAppointments } from "./pages/Doctor/DoctorAppointments";
 import { DoctorProfile } from "./pages/Doctor/DoctorProfile";
+import { VideoMeetComponent } from "../../frontend/src/pages/videoMeet";
 
 const App = () => {
   const { atoken } = useContext(AdminContext);
@@ -37,7 +38,7 @@ const App = () => {
           <Route path="/doctor-dashboard" element={<DoctorDashboard />} />
           <Route path="/doctor-appointments" element={<DoctorAppointments />}/>
           <Route path="/doctor-profile" element={<DoctorProfile />}/>
-
+          <Route path="/video/:url" element={<VideoMeetComponent />} />
         </Routes>
       </div>
     </div>

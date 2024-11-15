@@ -12,13 +12,20 @@ import Footer from "./components/footer"
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { Nearby } from "./pages/Nearby"
-
+import { VideoMeetComponent } from "./pages/videoMeet"
+import { useLocation } from "react-router-dom"
 
 const App = () => {
+
+  const location = useLocation();
+
+  const shouldShowNavbarFooter = !location.pathname.startsWith('/video/');
+
+
   return (
     <div className="mx-4 sm:mx-[10%]">
       <ToastContainer />
-      <Navbar />
+      {shouldShowNavbarFooter && <Navbar />}
       <Routes>
         <Route path='/' element={<Home />}/>
         <Route path='/doctors' element={<Doctors />}/>
@@ -30,8 +37,9 @@ const App = () => {
         <Route path='/my-appointments' element={<MyAppointments />}/>
         <Route path='/appointment/:docId' element={<Appointment />}/>
         <Route path="/nearby" element={<Nearby />} />
+        <Route path="/video/:url" element={<VideoMeetComponent />} />
       </Routes>
-      <Footer />
+      {shouldShowNavbarFooter && <Footer />}
     </div>
   )
 }

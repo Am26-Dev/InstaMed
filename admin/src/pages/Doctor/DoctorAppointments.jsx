@@ -6,6 +6,7 @@ import { AppContext } from "../../context/appContext";
 import CloseIcon from "@mui/icons-material/Close";
 import { IconButton } from "@mui/material";
 import CheckIcon from "@mui/icons-material/Check";
+import { Link } from "react-router-dom"
 
 export const DoctorAppointments = () => {
   const {
@@ -19,6 +20,7 @@ export const DoctorAppointments = () => {
 
   useEffect(() => {
     getAppointments();
+    console.log(appointments)
   }, [dtoken]);
 
   return (
@@ -60,7 +62,9 @@ export const DoctorAppointments = () => {
             <p>
               {slotDateFormat(item.slotDate)}, {item.slotTime}
             </p>
-            <p className="border border-gray-400 text-center py-2 rounded-full mr-5 text-white bg-blue-500">{item.appointmentType}</p>
+            <Link to={`/video/${item.docData.fixedId}`}>
+              <p className="border border-gray-400 text-center py-2 rounded-full mr-5 text-white bg-blue-500">{item.appointmentType}</p>
+            </Link>
             <p>
               {currency}
               {item.amount}

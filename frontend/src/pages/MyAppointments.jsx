@@ -2,6 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import { AppContext } from "../context/AppContext";
 import axios from "axios";
 import { toast } from "react-toastify";
+import { Link } from "react-router-dom";
 
 const MyAppointments = () => {
   const [appointments, setAppointments] = useState([])
@@ -68,7 +69,7 @@ const MyAppointments = () => {
         My Appointments
       </p>
       <div>
-        {appointments.slice(0, 2).map((item, index) => (
+        {appointments.slice(0, 10).map((item, index) => (
           <div
             className="grid grid-cols-[1fr_2fr] gap-4 sm:flex sm:gap-6 py-2 border-b"
             key={index}
@@ -89,11 +90,13 @@ const MyAppointments = () => {
                 {slotDateFormat(item.slotDate)}| {item.slotTime}
               </p>
               <button className="px-4 py-2 bg-purple-200 text-gray-500 rounded-full">{item.appointmentType} Appointment</button>
-                {
-                  item.appointmentType === "online" ? <div className="bg-primary text-white inline-block px-5 py-2 rounded-full ml-5">
-                    <p>Video callID:-<span>{item.docData.fixedId}</span></p>
-                  </div> : ""
-                }
+                <Link to={`/video/${item.docData.fixedId}`}>
+                  {
+                    item.appointmentType === "online" ? <div className="bg-primary text-white inline-block px-5 py-2 rounded-full ml-5">
+                      <p>Video callID:-<span>{item.docData.fixedId}</span></p>
+                    </div> : ""
+                  }
+                </Link>
             </div>
 
             <div>
