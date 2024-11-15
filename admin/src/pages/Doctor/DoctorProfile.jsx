@@ -111,14 +111,74 @@ export const DoctorProfile = () => {
                     onChange={(e) =>
                       setProfileData((prev) => ({
                         ...prev,
-                        address: { ...address, line1: e.target.value },
+                        address: { ...address, buildingnumber: e.target.value },
                       }))
                     }
-                    value={profileData.address.line1}
+                    value={profileData.address.buildingnumber}
                     type="text"
                   />
                 ) : (
-                  profileData.address.line1
+                  profileData.address.buildingnumber
+                )}
+                  {isEdit ? (
+                  <input
+                    className="bg-gray-100"
+                    onChange={(e) =>
+                      setProfileData((prev) => ({
+                        ...prev,
+                        address: { ...address, locality: e.target.value },
+                      }))
+                    }
+                    value={profileData.address.locality}
+                    type="text"
+                  />
+                ) : (
+                  profileData.address.locality
+                )}
+                  {isEdit ? (
+                  <input
+                    className="bg-gray-100"
+                    onChange={(e) =>
+                      setProfileData((prev) => ({
+                        ...prev,
+                        address: { ...address, district: e.target.value },
+                      }))
+                    }
+                    value={profileData.address.district}
+                    type="text"
+                  />
+                ) : (
+                  profileData.address.district
+                )}
+                  {isEdit ? (
+                  <input
+                    className="bg-gray-100"
+                    onChange={(e) =>
+                      setProfileData((prev) => ({
+                        ...prev,
+                        address: { ...address, city: e.target.value },
+                      }))
+                    }
+                    value={profileData.address.city}
+                    type="text"
+                  />
+                ) : (
+                  profileData.address.city
+                )}
+                  {isEdit ? (
+                  <input
+                    className="bg-gray-100"
+                    onChange={(e) =>
+                      setProfileData((prev) => ({
+                        ...prev,
+                        address: { ...address, state: e.target.value },
+                      }))
+                    }
+                    value={profileData.address.state}
+                    type="text"
+                  />
+                ) : (
+                  profileData.address.state
                 )}
                 <br />
                 {isEdit ? (
@@ -127,14 +187,14 @@ export const DoctorProfile = () => {
                     onChange={(e) =>
                       setProfileData((prev) => ({
                         ...prev,
-                        address: { ...address, line1: e.target.value },
+                        address: { ...address, country: e.target.value },
                       }))
                     }
-                    value={profileData.address.line2}
+                    value={profileData.address.country}
                     type="text"
                   />
                 ) : (
-                  profileData.address.line2
+                  profileData.address.country
                 )}
               </p>
             </div>

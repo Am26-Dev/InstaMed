@@ -30,7 +30,14 @@ const doctorSchema = new mongoose.Schema(
     },
     address: {
       type: Object,
-      default: { line1: "", line2: "" },
+      default: {
+        buildingnumber : "",
+        locality: "",
+        district: "",
+        city: "",
+        state: "",
+        country: "",
+      },
     },
     about: {
       type: String,

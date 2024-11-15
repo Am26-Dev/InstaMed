@@ -81,8 +81,8 @@ const MyAppointments = () => {
               <p className="text-neutral-800 font-semibold">{item.docData.name}</p>
               <p>{item.docData.speciality}</p>
               <p className="text-zinc-700 font-medium mt-1">Address:</p>
-              <p className="text-xs">{item.docData.address.line1}</p>
-              <p className="text-xs">{item.docData.address.line2}</p>
+              <p className="text-xs">{item.docData.address.buildingnumber}, {item.docData.address.locality}, {item.docData.address.district}</p>
+              <p className="text-xs">{item.docData.address.city}, {item.docData.address.country}</p> 
               <p className="text-sm mt-1">
                 <span className="text-sm text-neutral-700 font-medium">
                   Date & Time:

@@ -44,3 +44,13 @@ input {
 input {
   z-index: 1000;
 }
+
+/* this hides whole container */
+.leaflet-routing-container {
+  display: none; 
+}
+
+/* Or, to hide specific elements within the container: */
+/* .leaflet-routing-container .leaflet-routing-alt-line {
+  display: none;
+} */

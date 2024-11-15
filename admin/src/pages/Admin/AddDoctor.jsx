@@ -13,8 +13,12 @@ export const AddDoctor = () => {
   const [about, setAbout] = useState("");
   const [speciality, setSpeciality] = useState("General Physician");
   const [degree, setDegree] = useState("");
-  const [line1, setLine1] = useState("");
-  const [line2, setLine2] = useState("");
+  const [locality, setLocality] = useState("");
+  const [district, setDistrict] = useState("");
+  const [buildingnumber, setBuildingNumber] = useState("")
+  const [city, setCity] = useState("")
+  const [state, setState] = useState("");
+  const [country, setCountry] = useState("");
   const [fixedId, setFixedId] = useState("")
 
   const { atoken, backendUrl } = useContext(AdminContext);
@@ -39,7 +43,7 @@ export const AddDoctor = () => {
       formData.append("experience", exp);
       formData.append(
         "address",
-        JSON.stringify({ line1: line1, line2: line2 })
+        JSON.stringify({buildingnumber: buildingnumber , locality: locality, district: district, city: city, state: state, country: country,  })
       );
       formData.append("degree", degree);
       formData.append("fixedId", fixedId);
@@ -55,8 +59,12 @@ export const AddDoctor = () => {
         setPassword("")
         setAbout("")
         setDegree("")
-        setLine1("")
-        setLine2("")
+        setLocality("")
+        setBuildingNumber("")
+        setCity("")
+        setState("")
+        setCountry("")
+        setDistrict("")
         setFee("")
         setFixedId("")
       } else {
@@ -195,18 +203,50 @@ export const AddDoctor = () => {
               <p>Address</p>
               <input
                 className="border rounded px-4 py-2 mb-2"
-                onChange={(e) => setLine1(e.target.value)}
-                value={line1}
+                onChange={(e) => setBuildingNumber(e.target.value)}
+                value={buildingnumber}
                 type="text"
-                placeholder="line1"
+                placeholder="building number"
                 required
               />
               <input
                 className="border rounded px-4 py-2 mb-2"
-                onChange={(e) => setLine2(e.target.value)}
-                value={line2}
+                onChange={(e) => setLocality(e.target.value)}
+                value={locality}
                 type="text"
-                placeholder="line2"
+                placeholder="locality"
+                required
+              />
+              <input
+                className="border rounded px-4 py-2 mb-2"
+                onChange={(e) => setDistrict(e.target.value)}
+                value={district}
+                type="text"
+                placeholder="district"
+                required
+              />
+              <input
+                className="border rounded px-4 py-2 mb-2"
+                onChange={(e) => setCity(e.target.value)}
+                value={city}
+                type="text"
+                placeholder="city"
+                required
+              />
+              <input
+                className="border rounded px-4 py-2 mb-2"
+                onChange={(e) => setState(e.target.value)}
+                value={state}
+                type="text"
+                placeholder="state"
+                required
+              />
+              <input
+                className="border rounded px-4 py-2 mb-2"
+                onChange={(e) => setCountry(e.target.value)}
+                value={country}
+                type="text"
+                placeholder="country"
                 required
               />
             </div>
