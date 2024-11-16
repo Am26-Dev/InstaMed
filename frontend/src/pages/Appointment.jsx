@@ -1,8 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { AppContext } from "../context/AppContext";
-import { assets } from "../assets/assets";
-import RelatedDoctors from "../components/RelatedDoctors";
 import { toast } from "react-toastify";
 import axios from "axios";
 import { BtwMap } from "../components/BtwMap";
@@ -133,218 +131,111 @@ const Appointment = () => {
     // console.log(docSlots);
   }, [docSlots]);
 
-  // return (
-  //   docInfo && (
-  //     <div className="flex flex-col ">
-  //       <div className="flex flex-col sm:flex-row gap-4">
-  //         <div>
-  //           <img
-  //             className="bg-primary w-full sm:max-w-72 rounded-lg"
-  //             src={docInfo.image}
-  //             alt=""
-  //           />
-  //         </div>
-  //         <div className="flex-1 border border-gray-400 rounded-lg p-8 py-7 bg-white mx-2 sm:mx-0 mt-[-80px] sm:mt-0">
-  //           <p className="flex items-center gap-2 text-2xl font-medium text-gray-900">
-  //             {docInfo.name}
-  //             <img className="w-5" src={assets.verified_icon} alt="" />
-  //           </p>
-  //           <div className="flex items-center gap-2 text-sm mt-1 text-gray-600">
-  //             <p>
-  //               {docInfo.degree} - {docInfo.speciality}
-  //             </p>
-  //             <button className="py-0.5 px-2 border text-xs rounded-full">
-  //               {docInfo.experience}
-  //             </button>
-  //           </div>
-  //           <div>
-  //             <p className="flex items-center gap-1 text-sm font-medium text-gray-900 mt-3">
-  //               About <img src={assets.info_icon} alt="" />
-  //             </p>
-  //             <p className="text-sm text-gray-500 max-w-[700px] mt-1">
-  //               {docInfo.about}
-  //             </p>
-  //           </div>
-  //           <p className="text-gray-500 font-medium mt-4">
-  //             Appintment fee:{" "}
-  //             <span className="text-gray-600">
-  //               {" "}
-  //               {currencySymbol}
-  //               {docInfo.fees}{" "}
-  //             </span>
-  //           </p>
-  //         </div>
-  //       </div>
-
-  //       <div className="sm:ml-72 sm:pl-4 mt-4 font-mediu text-gray-700">
-  //         <p>Booking Slots</p>
-  //         <div className="flex gap-3 tems-center w-full overflow-x-scroll mt-4">
-  //           {docSlots.length &&
-  //             docSlots.map((item, index) => (
-  //               <div
-  //                 onClick={() => setSlotIndex(index)}
-  //                 className={`text-center py-6 min-w-16 rounded-full cursor-pointer ${
-  //                   slotIndex === index
-  //                     ? "bg-primary text-white "
-  //                     : "border border-gray-200"
-  //                 }`}
-  //                 key={index}
-  //               >
-  //                 <p>{item[0] && daysOfWeek[item[0].datetime.getDay()]} </p>
-  //                 <p>{item[0] && item[0].datetime.getDate()}</p>
-  //               </div>
-  //             ))}
-  //         </div>
-
-  //         <div className="flex items-center gap-3 w-full overflow-x-scroll mt-4">
-  //           {docSlots.length &&
-  //             docSlots[slotIndex].map((item, index) => (
-  //               <p
-  //                 onClick={() => setSlotTime(item.time)}
-  //                 className={`text-sm font-light flex-shrink-0 px-5 py-2 rounded-full cursor-pointer ${
-  //                   item.time === slotTime
-  //                     ? "bg-primary text-white"
-  //                     : "text-gray-400 border border-gray-300"
-  //                 }`}
-  //                 key={index}
-  //               >
-  //                 {item.time.toLowerCase()}
-  //               </p>
-  //             ))}
-  //         </div>
-
-  //         <div className="flex gap-5 mt-5">
-  //           <button
-  //             onClick={() => setAppointmentType("in-person")}
-  //             className={`px-5 py-2 rounded-full border border-gray-300 ${
-  //               appointmentType === "in-person"
-  //                 ? "bg-primary text-white"
-  //                 : "bg-white text-gray-900"
-  //             }`}
-  //           >
-  //             In-Person
-  //           </button>
-
-  //           <button
-  //             onClick={() => setAppointmentType("online")}
-  //             className={`px-5 py-2 rounded-full border border-gray-300 ${
-  //               appointmentType === "online" ? "bg-primary text-white" : "bg-white text-gray-900"
-  //             }`}
-  //           >
-  //             Online
-  //           </button>
-  //         </div>
-
-  //         <button
-  //           onClick={bookAppointment}
-  //           className="bg-primary text-white text-sm font-light px-14 py-3 rounded-full my-5"
-  //         >
-  //           Book an appointment
-  //         </button>
-  //       </div>
-
-  //       <BtwMap />
-  //     </div>
-  //   )
-  // );
   return (
     docInfo && (
-      <div className="flex flex-col px-6 py-8 bg-gray-50 space-y-10">
-        {/* Doctor's Info Section */}
-        <div className="flex flex-col sm:flex-row bg-white shadow-2xl rounded-lg p-8 max-w-screen-xl mx-auto space-y-8 sm:space-y-0 sm:space-x-8">
-          {/* Doctor Image */}
-          <div className="w-full sm:w-1/3 h-96 overflow-hidden rounded-xl bg-primary shadow-md transform transition-all hover:scale-105 duration-300 ease-in-out">
+      <div className="min-h-screen bg-gray-100 py-12 px-6">
+
+        <div className="bg-white shadow-lg rounded-lg max-w-screen-xl mx-auto p-8 flex flex-col md:flex-row gap-8">
+
+          <div className="w-full md:w-1/3 h-96 rounded-lg overflow-hidden bg-primary">
             <img
-              className="w-full h-full object-cover"
+              className="w-full h-full object-cover rounded-lg shadow-lg transform hover:scale-105 transition-all"
               src={docInfo.image}
               alt={docInfo.name}
             />
           </div>
 
-          {/* Doctor Details */}
-          <div className="sm:w-2/3 space-y-6">
-            {/* Name and Specialization */}
-            <div>
-              <h1 className="text-4xl font-extrabold text-gray-800">
-                {docInfo.name}
-              </h1>
-              <p className="text-xl text-gray-600 mt-2">
-                {docInfo.degree} - {docInfo.speciality}
-              </p>
-              <p className="text-base text-gray-500 mt-1">
-                {docInfo.experience} years of experience
-              </p>
+{/*--------------------------------------------Doctor details--------------------------------------------------------------------*/}
+          <div className="w-full md:w-2/3 space-y-6">
+            <h1 className="text-4xl font-bold text-gray-800">{docInfo.name}</h1>
+            <p className="text-xl text-gray-600">
+              {docInfo.degree} - {docInfo.speciality}
+            </p>
+            <p className="text-lg text-gray-500">
+              {docInfo.experience} years of experience
+            </p>
+
+    
+            <div className="space-y-4 mt-6 p-6 bg-gray-50 rounded-lg shadow-md">
+              <h3 className="text-2xl font-semibold text-gray-800">About</h3>
+              <p className="text-gray-600 leading-relaxed">{docInfo.about}</p>
             </div>
 
-            {/* About Doctor */}
-            <div>
-              <h3 className="text-2xl font-medium text-gray-800">About</h3>
-              <p className="text-gray-600 mt-2">{docInfo.about}</p>
-            </div>
-
-            {/* Appointment Fee */}
-            <div>
-              <p className="text-xl font-semibold text-gray-900">
-                Appointment Fee:
-              </p>
-              <p className="text-2xl font-bold text-indigo-600">
-                {currencySymbol}
-                {docInfo.fees}
-              </p>
-            </div>
-
-            {/* Contact Info */}
-            <div className="space-y-4 text-gray-600">
-              <div className="flex items-center space-x-3">
-                <span className="text-base">{docInfo.location}</span>
+            <div className="mt-6 space-y-4">
+              <div>
+                <p className="text-xl font-semibold text-gray-900">
+                  Appointment Fee:
+                </p>
+                <p className="text-2xl font-bold text-indigo-600">
+                  {currencySymbol}
+                  {docInfo.fees}
+                </p>
               </div>
-              <div className="flex items-center space-x-3">
-                <span className="text-base">{docInfo.phone}</span>
+
+{/*--------------------------------------------Doctor Location--------------------------------------------------------------*/}
+              <div className="text-gray-600">
+                <p>
+                  <strong>Location:📍</strong>
+                  <span>
+                    {docInfo.address.buildingnumber} {docInfo.address.locality},{" "}
+                    {docInfo.address.district}
+                    {" - "}
+                    {docInfo.address.city}, {docInfo.address.state},{" "}
+                    {docInfo.address.country}
+                  </span>
+                </p>
+              </div>
+
+  
+              <div className="space-y-4 text-gray-600">
+                <p>
+                  <strong>Contact:</strong> {docInfo.phone}
+                </p>
               </div>
             </div>
           </div>
         </div>
 
-        {/* Booking Slots Section */}
-        <div className="space-y-5">
+{/*----------------------------------------------Booking slots section--------------------------------------------------------*/}
+        <div className="mt-12 bg-white shadow-lg rounded-lg p-8 max-w-screen-xl mx-auto space-y-8">
           <p className="text-2xl font-semibold text-gray-700">
             Available Booking Slots
           </p>
 
-          {/* Slot Date Selection */}
-          <div className="flex gap-5 overflow-x-auto mt-5">
+{/*-----------------------------------------------------Slot date selection-----------------------------------------------------*/}
+          <div className="flex gap-4 overflow-x-auto mt-5">
             {docSlots.length &&
               docSlots.map((item, index) => (
                 <div
                   key={index}
                   onClick={() => setSlotIndex(index)}
-                  className={`w-24 py-5 text-center rounded-lg cursor-pointer ${
+                  className={`w-20 py-4 px-3 text-center rounded-full cursor-pointer transition-all duration-300 ${
                     slotIndex === index
-                      ? "bg-primary text-white"
-                      : "border border-gray-300"
+                      ? "bg-primary text-white "
+                      : "border-2 border-gray-300 hover:bg-gray-50"
                   }`}
                 >
-                  <p className="font-medium">
+                  <p className="font-semibold text-sm">
                     {item[0] && daysOfWeek[item[0].datetime.getDay()]}
                   </p>
-                  <p className="font-light">
+                  <p className="text-xs">
                     {item[0] && item[0].datetime.getDate()}
                   </p>
                 </div>
               ))}
           </div>
 
-          {/* Slot Time Selection */}
+{/*------------------------------------------Slot timing selection----------------------------------------------*/}
           <div className="flex gap-4 mt-5 overflow-x-auto">
             {docSlots.length &&
               docSlots[slotIndex].map((item, index) => (
                 <p
                   key={index}
                   onClick={() => setSlotTime(item.time)}
-                  className={`text-sm font-medium px-5 py-2 rounded-full cursor-pointer ${
+                  className={`text-sm font-medium px-6 py-2 rounded-full cursor-pointer transition-all duration-300 ${
                     item.time === slotTime
                       ? "bg-primary text-white"
-                      : "text-gray-500 border border-gray-300"
+                      : "text-gray-500 border border-gray-300 hover:bg-gray-50"
                   }`}
                 >
                   {item.time.toLowerCase()}
@@ -352,14 +243,14 @@ const Appointment = () => {
               ))}
           </div>
 
-          {/* Appointment Type Selection */}
-          <div className="flex gap-6 mt-6">
+{/*----------------------------------Appointment Type Selection---------------------------------------------------*/}
+          <div className="flex gap-4 mt-6 justify-center">
             <button
               onClick={() => setAppointmentType("in-person")}
-              className={`px-6 py-3 rounded-full border border-gray-300 w-1/2 text-center ${
+              className={`py-3 px-6 rounded-full text-center transition-all duration-300 ${
                 appointmentType === "in-person"
-                  ? "bg-primary text-white"
-                  : "bg-white text-gray-900"
+                  ? "bg-primary text-white transform scale-105"
+                  : "bg-white text-gray-900 border border-gray-300 hover:bg-gray-50"
               }`}
             >
               In-Person
@@ -367,10 +258,10 @@ const Appointment = () => {
 
             <button
               onClick={() => setAppointmentType("online")}
-              className={`px-6 py-3 rounded-full border border-gray-300 w-1/2 text-center ${
+              className={`py-3 px-6 rounded-full text-center transition-all duration-300 ${
                 appointmentType === "online"
-                  ? "bg-primary text-white"
-                  : "bg-white text-gray-900"
+                  ? "bg-primary text-white transform scale-105"
+                  : "bg-white text-gray-900 border border-gray-300 hover:bg-gray-50"
               }`}
             >
               Online
@@ -378,18 +269,17 @@ const Appointment = () => {
           </div>
         </div>
 
-        {/* Book Appointment Button */}
-        <div className="flex justify-center mt-8">
+        <div className="flex justify-center mt-10">
           <button
             onClick={bookAppointment}
-            className="bg-primary text-white text-lg font-semibold px-16 py-4 rounded-full w-full sm:w-auto"
+            className="bg-primary text-white text-lg font-semibold px-16 py-4 rounded-full w-full sm:w-auto transition-all duration-300 hover:bg-indigo-700 hover:scale-105"
           >
             Book Appointment
           </button>
         </div>
 
-        {/* Map Component */}
-        <div className="mt-10">
+
+        <div className="mt-12">
           <BtwMap />
         </div>
       </div>

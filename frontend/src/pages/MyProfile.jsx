@@ -50,7 +50,7 @@ const MyProfile = () => {
   return (
     userData && (
       <div className="max-w-3xl mx-auto p-8 bg-white rounded-3xl shadow-xl space-y-8">
-        {/* Profile Image Section */}
+  
         <div className="flex justify-center">
           <div className="relative">
             {isEdit ? (
@@ -84,7 +84,6 @@ const MyProfile = () => {
           </div>
         </div>
 
-        {/* User Name Section */}
         <div className="text-center">
           {isEdit ? (
             <input
@@ -104,7 +103,7 @@ const MyProfile = () => {
 
         <hr className="border-t border-gray-300" />
 
-        {/* Contact Information Section */}
+{/*-------------------------------------------Contact Information Section------------------------------------------*/}
         <div className="bg-gray-50 p-6 rounded-2xl shadow-md">
           <p className="text-xl font-semibold text-gray-700 mb-4">
             Contact Information
@@ -169,7 +168,7 @@ const MyProfile = () => {
 
         <hr className="border-t border-gray-300" />
 
-        {/* Basic Information Section */}
+
         <div className="bg-gray-50 p-6 rounded-2xl shadow-md">
           <p className="text-xl font-semibold text-gray-700 mb-4">
             Basic Information
@@ -211,12 +210,12 @@ const MyProfile = () => {
           </div>
         </div>
 
-        {/* Edit / Save Button Section */}
+  
         <div className="text-center">
           {isEdit ? (
             <button
               className="px-6 py-2 bg-blue-500 text-white rounded-full shadow-md hover:bg-blue-600 transition-all"
-              onClick={updateUserProfileData}
+              onClick={()=>{updateUserProfileData(), scrollTo(0,0)}}
             >
               Save Information
             </button>

@@ -111,7 +111,7 @@ const MyAppointments = () => {
             className="flex flex-col sm:flex-row bg-white shadow-md rounded-lg overflow-hidden border"
             key={index}
           >
-            {/* Left Section: Doctor Info */}
+{/*-------------------------------------------Doctor Info------------------------------------------------------*/}
             <div className="sm:w-1/3 p-5 bg-indigo-100 flex flex-col items-center">
               <img
                 className="w-24 h-24 rounded-full object-cover border-4 border-white shadow-lg mb-3"
@@ -140,13 +140,13 @@ const MyAppointments = () => {
               </div>
             </div>
 
-            {/* Right Section: Appointment Info & Actions */}
+{/*-------------------------------Appointment Info & Actions------------------------------------------------------------------*/}
             <div className="sm:w-2/3 p-5 flex flex-col justify-between relative">
-              {/* Adding a subtle background pattern on the right section */}
+              
               <div className="absolute inset-0 bg-gradient-to-r from-indigo-100 via-indigo-200 to-indigo-300 opacity-50 z-0"></div>
 
               <div className="z-10">
-                {/* Appointment Details */}
+        
                 <div>
                   <p className="text-sm font-medium text-zinc-700">
                     Date & Time:{" "}
@@ -165,7 +165,7 @@ const MyAppointments = () => {
                   </span>
                 </div>
 
-                {/* Video Call Section */}
+       
                 {item.appointmentType === "online" && (
                   <Link
                     to={`/video/${item.docData.fixedId}`}
@@ -175,7 +175,7 @@ const MyAppointments = () => {
                   </Link>
                 )}
 
-                {/* Action Buttons */}
+         
                 <div className="mt-5 flex flex-wrap gap-3">
                   {!item.cancelled && item.payment && !item.isCompleted && (
                     <button className="py-2 px-4 bg-green-100 text-green-700 rounded border">

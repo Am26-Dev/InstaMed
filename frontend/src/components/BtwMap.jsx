@@ -4,18 +4,20 @@ import { MapContainer, Marker, TileLayer, Popup, useMap } from "react-leaflet";
 import { Icon } from "leaflet";
 import axios from "axios";
 import L from "leaflet";
-import "leaflet-routing-machine"; // Importing routing machine
+import "leaflet-routing-machine";
 import { AppContext } from "../context/AppContext";
 
 export const BtwMap = () => {
   const [userPosition, setUserPosition] = useState({
-    latitude: 28.6139, // Initial default coordinates for user (Delhi)
+    latitude: 28.6139,
     longitude: 77.209,
   });
-  const [doctorPosition, setDoctorPosition] = useState(null); // State to store doctor's coordinates
-  const [isUserPositionFetched, setIsUserPositionFetched] = useState(false); // Flag to check if position is updated
-  const { loadUserProfileData, userData, doctors, getDoctorsData } = useContext(AppContext);
+  const [doctorPosition, setDoctorPosition] = useState(null);
+  const [isUserPositionFetched, setIsUserPositionFetched] = useState(false);
+  const { loadUserProfileData, userData, doctors, getDoctorsData } =
+    useContext(AppContext);
   const [distance, setDistance] = useState(null);
+  const [zoomLevel, setZoomLevel] = useState(8);
 
   // Fetching user data and setting position
   useEffect(() => {
@@ -25,26 +27,31 @@ export const BtwMap = () => {
     }
 
     if (userData.address && userData.address.locality) {
-      const locality = userData.address.locality; // e.g., "Janakpuri"
-      const district = userData.address.district || ""; // e.g., "West Delhi"
-      const state = userData.address.state || ""; // e.g., "Delhi"
-      const country = userData.address.country || ""; // e.g., "India"
+      const locality = userData.address.locality;
+      const district = userData.address.district || "";
+      const state = userData.address.state || "";
+      const country = userData.address.country || "";
 
-      const searchQuery = `${locality}, ${district}, ${state}, ${country}`.trim();
-      console.log("Search query for user:", searchQuery); // Debug: log the constructed search query for user
-
+      const searchQuery =
+        `${locality}, ${district}, ${state}, ${country}`.trim();
+      console.log("Search query for user:", searchQuery);
       const fetchCoordinates = async () => {
         try {
           const response = await axios.get(
-            `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(searchQuery)}&format=json&addressdetails=1&limit=1`
+            `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(
+              searchQuery
+            )}&format=json&addressdetails=1&limit=1`
           );
 
-          console.log("API Response for user:", response.data); // Debug: log the response from API
+          console.log("API Response for user:", response.data);
 
           if (response.data.length > 0) {
             const { lat, lon } = response.data[0];
-            setUserPosition({ latitude: parseFloat(lat), longitude: parseFloat(lon) });
-            setIsUserPositionFetched(true); // Set the flag to true once position is fetched
+            setUserPosition({
+              latitude: parseFloat(lat),
+              longitude: parseFloat(lon),
+            });
+            setIsUserPositionFetched(true);
           } else {
             console.error("No results found for address:", searchQuery);
           }
@@ -57,14 +64,14 @@ export const BtwMap = () => {
     }
   }, [userData, loadUserProfileData]);
 
-  // Fetching doctor data and setting coordinates based on doctor's address
+  //========== Fetching doctor data and setting coordinates based on doctor's address=========================================
   useEffect(() => {
     const fetchDoctorCoordinates = async () => {
       if (!doctors || doctors.length === 0) {
         return;
       }
 
-      // Loop through each doctor and fetch their coordinates
+      //==============Loop through each doctor and fetch their coordinates=============================================
       for (const doctor of doctors) {
         if (doctor.address && doctor.address.locality) {
           const locality = doctor.address.locality;
@@ -72,15 +79,18 @@ export const BtwMap = () => {
           const state = doctor.address.state || "";
           const country = doctor.address.country || "";
 
-          const searchQuery = `${locality}, ${district}, ${state}, ${country}`.trim();
-          console.log("Doctor search query:", searchQuery); // Debug: log the constructed search query for doctor
+          const searchQuery =
+            `${locality}, ${district}, ${state}, ${country}`.trim();
+          console.log("Doctor search query:", searchQuery);
 
           try {
             const response = await axios.get(
-              `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(searchQuery)}&format=json&addressdetails=1&limit=1`
+              `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(
+                searchQuery
+              )}&format=json&addressdetails=1&limit=1`
             );
 
-            console.log("API Response for doctor:", response.data); // Debug: log the response from API
+            console.log("API Response for doctor:", response.data);
 
             if (response.data.length > 0) {
               const { lat, lon } = response.data[0];
@@ -89,7 +99,10 @@ export const BtwMap = () => {
                 longitude: parseFloat(lon),
               });
             } else {
-              console.error("No results found for doctor's address:", searchQuery);
+              console.error(
+                "No results found for doctor's address:",
+                searchQuery
+              );
             }
           } catch (error) {
             console.error("Error fetching doctor's coordinates:", error);
@@ -107,35 +120,39 @@ export const BtwMap = () => {
   });
 
   const customDoctorIcon = new Icon({
-    iconUrl: "/healthcare.png", // Use a doctor icon image
+    iconUrl: "/healthcare.png",
     iconSize: [40, 40],
   });
 
-  // This component will update the map center based on user position
   const UpdateMapCenter = () => {
-    const map = useMap(); // Correct use of useMap hook here
+    const map = useMap();
     useEffect(() => {
       if (userPosition.latitude && userPosition.longitude) {
-        map.setView([userPosition.latitude, userPosition.longitude], 8);
+        map.setView([userPosition.latitude, userPosition.longitude], zoomLevel);
       }
-    }, [userPosition, map]);
+    }, [userPosition, zoomLevel, map]);
 
-    // Display route when both user and doctor positions are available
     useEffect(() => {
       if (userPosition && doctorPosition) {
-        const userLatLng = L.latLng(userPosition.latitude, userPosition.longitude);
-        const doctorLatLng = L.latLng(doctorPosition.latitude, doctorPosition.longitude);
+        const userLatLng = L.latLng(
+          userPosition.latitude,
+          userPosition.longitude
+        );
+        const doctorLatLng = L.latLng(
+          doctorPosition.latitude,
+          doctorPosition.longitude
+        );
 
-        // Calculate and set the distance between the user and doctor 
-        const distance = userLatLng.distanceTo(doctorLatLng) / 1000; 
-        // Convert meters to kilometers 
-        setDistance(distance.toFixed(2)); // Set the distance state
+        // Calculating and set the distance between the user and doctor
+        const distance = userLatLng.distanceTo(doctorLatLng) / 1000;
+        //  meters to kilometers
+        setDistance(distance.toFixed(2));
 
         // Create routing control to display the route
         const routingControl = L.Routing.control({
           waypoints: [userLatLng, doctorLatLng],
           routeWhileDragging: true,
-          createMarker: function(i, waypoint, n) {
+          createMarker: function (i, waypoint, n) {
             // Customize markers for waypoints
             if (i === 0) {
               // Return null for user location marker to suppress it
@@ -153,8 +170,28 @@ export const BtwMap = () => {
       }
     }, [userPosition, doctorPosition, map]);
 
-    return null; // No rendering needed
+    return null;
   };
+
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth < 768) {
+        setZoomLevel(10);
+      } else {
+        setZoomLevel(8);
+      }
+    };
+
+    // Sets zoom level when the component mounts
+    handleResize();
+
+    window.addEventListener("resize", handleResize);
+
+    // Cleanup event listener on component unmount
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
 
   return (
     <>
@@ -164,9 +201,8 @@ export const BtwMap = () => {
         </h1>
         <MapContainer
           center={[userPosition.latitude, userPosition.longitude]}
-          zoom={8}
-          // className="h-[50vh] w-[50]"
-          style={{ height: "50vh", width: "50%", borderRadius: "10px" }}
+          zoom={zoomLevel}
+          style={{ height: "50vh", width: "100%", borderRadius: "10px" }}
         >
           <UpdateMapCenter />
           <TileLayer
@@ -175,21 +211,33 @@ export const BtwMap = () => {
           />
           {/* Render user's marker only if the position is fetched and updated */}
           {isUserPositionFetched && (
-            <Marker position={[userPosition.latitude, userPosition.longitude]} icon={customIcon}>
+            <Marker
+              position={[userPosition.latitude, userPosition.longitude]}
+              icon={customIcon}
+            >
               <Popup>Your location</Popup>
             </Marker>
           )}
           {/* Render doctor's marker only if the doctor position is available */}
           {doctorPosition && (
-            <Marker position={[doctorPosition.latitude, doctorPosition.longitude]} icon={customDoctorIcon}>
+            <Marker
+              position={[doctorPosition.latitude, doctorPosition.longitude]}
+              icon={customDoctorIcon}
+            >
               <Popup>Doctor's location</Popup>
             </Marker>
           )}
         </MapContainer>
         {/* Display the distance between the user and doctor */}
         {distance && (
-          <div className="text-center mt-4">
-            <h2>Distance to Doctor: {distance} km</h2>
+          <div className="text-center mt-4 p-5 bg-blue-100 border-2 border-blue-300 rounded-xl shadow-lg max-w-md mx-auto">
+            <h2 className="text-xl font-semibold text-blue-700 mb-2">
+              Distance to Doctor
+            </h2>
+            <p className="text-3xl font-bold text-blue-800">{distance} km</p>
+            <p className="text-sm text-gray-600 mt-2">
+              This is the distance between you and your doctor
+            </p>
           </div>
         )}
       </div>
