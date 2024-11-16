@@ -158,35 +158,41 @@ export const BtwMap = () => {
 
   return (
     <>
-      <MapContainer
-        center={[userPosition.latitude, userPosition.longitude]}
-        zoom={13}
-        style={{ height: "80vh", width: "50%", borderRadius: "10px" }}
-      >
-        <UpdateMapCenter />
-        <TileLayer
-          attribution='&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-          url="https://tile.openstreetmap.org/{z}/{x}/{y}.png"
-        />
-        {/* Render user's marker only if the position is fetched and updated */}
-        {isUserPositionFetched && (
-          <Marker position={[userPosition.latitude, userPosition.longitude]} icon={customIcon}>
-            <Popup>Your location</Popup>
-          </Marker>
+      <div className="flex flex-col items-center mt-5">
+        <h1 className="text-gray-600 font-bold text-4xl mb-5">
+          Doctor's Location and Distance from You
+        </h1>
+        <MapContainer
+          center={[userPosition.latitude, userPosition.longitude]}
+          zoom={8}
+          // className="h-[50vh] w-[50]"
+          style={{ height: "50vh", width: "50%", borderRadius: "10px" }}
+        >
+          <UpdateMapCenter />
+          <TileLayer
+            attribution='&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+            url="https://tile.openstreetmap.org/{z}/{x}/{y}.png"
+          />
+          {/* Render user's marker only if the position is fetched and updated */}
+          {isUserPositionFetched && (
+            <Marker position={[userPosition.latitude, userPosition.longitude]} icon={customIcon}>
+              <Popup>Your location</Popup>
+            </Marker>
+          )}
+          {/* Render doctor's marker only if the doctor position is available */}
+          {doctorPosition && (
+            <Marker position={[doctorPosition.latitude, doctorPosition.longitude]} icon={customDoctorIcon}>
+              <Popup>Doctor's location</Popup>
+            </Marker>
+          )}
+        </MapContainer>
+        {/* Display the distance between the user and doctor */}
+        {distance && (
+          <div className="text-center mt-4">
+            <h2>Distance to Doctor: {distance} km</h2>
+          </div>
         )}
-        {/* Render doctor's marker only if the doctor position is available */}
-        {doctorPosition && (
-          <Marker position={[doctorPosition.latitude, doctorPosition.longitude]} icon={customDoctorIcon}>
-            <Popup>Doctor's location</Popup>
-          </Marker>
-        )}
-      </MapContainer>
-      {/* Display the distance between the user and doctor */}
-      {distance && (
-        <div className="text-center mt-4">
-          <h2>Distance to Doctor: {distance} km</h2>
-        </div>
-      )}
+      </div>
     </>
   );
 };
