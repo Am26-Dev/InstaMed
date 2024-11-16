@@ -8,8 +8,14 @@ import CloseIcon from "@mui/icons-material/Close";
 import CheckIcon from "@mui/icons-material/Check";
 
 export const DoctorDashboard = () => {
-  const { dtoken, dashData, setDashData, getDashData, cancelAppointment, completeAppointment } =
-    useContext(DoctorContext);
+  const {
+    dtoken,
+    dashData,
+    setDashData,
+    getDashData,
+    cancelAppointment,
+    completeAppointment,
+  } = useContext(DoctorContext);
   const { currency, slotDateFormat } = useContext(AppContext);
 
   useEffect(() => {
@@ -20,92 +26,117 @@ export const DoctorDashboard = () => {
 
   return (
     dashData && (
-      <div className="m-5">
-        <div className="flex flex-wrap gap-4">
-          <div className="flex items-center gap-2 bg-white p-4 min-w-52 rounded border-2 border-gray-100 cursor-pointer hover:scale-105 transition-all">
-            <i className="fa-solid fa-user-doctor w-14"></i>
-            <div>
-              <p className="text-xl font-semibold text-gray-600">
-                {currency}
-                {dashData.earnings}
-              </p>
-              <p className="text-gray-400">Earnings</p>
+      <div className="m-6 space-y-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="flex items-center justify-between p-6 bg-white rounded-xl shadow-xl hover:scale-105 transition-all border-t-4 border-t-primary">
+            <div className="flex items-center space-x-4">
+              <div className="bg-primary p-4 rounded-full">
+                <i className="fa-solid fa-dollar-sign text-white text-3xl"></i>
+              </div>
+              <div>
+                <p className="text-2xl font-bold text-gray-800">
+                  {currency}
+                  {dashData.earnings}
+                </p>
+                <p className="text-gray-500">Earnings</p>
+              </div>
             </div>
           </div>
 
-          <div className="flex items-center gap-2 bg-white p-4 min-w-52 rounded border-2 border-gray-100 cursor-pointer hover:scale-105 transition-all">
-            <i className="fa-solid fa-user-doctor w-14"></i>
-            <div>
-              <p className="text-xl font-semibold text-gray-600">
-                {dashData.appointments}
-              </p>
-              <p className="text-gray-400">Appointments</p>
+          <div className="flex items-center justify-between p-6 bg-white rounded-xl shadow-xl hover:scale-105 transition-all border-t-4 border-t-primary">
+            <div className="flex items-center space-x-4">
+              <div className="bg-primary p-4 rounded-full">
+                <i className="fa-solid fa-calendar-check text-white text-3xl"></i>
+              </div>
+              <div>
+                <p className="text-2xl font-bold text-gray-800">
+                  {dashData.appointments}
+                </p>
+                <p className="text-gray-500">Appointments</p>
+              </div>
             </div>
           </div>
 
-          <div className="flex items-center gap-2 bg-white p-4 min-w-52 rounded border-2 border-gray-100 cursor-pointer hover:scale-105 transition-all">
-            <i className="fa-solid fa-user w-14"></i>
-            <div>
-              <p className="text-xl font-semibold text-gray-600">
-                {dashData.patients}
-              </p>
-              <p className="text-gray-400">Patients</p>
+          <div className="flex items-center justify-between p-6 bg-white rounded-xl shadow-xl hover:scale-105 transition-all border-t-4 border-t-primary">
+            <div className="flex items-center space-x-4">
+              <div className="bg-primary p-4 rounded-full">
+                <i className="fa-solid fa-users text-white text-3xl"></i>
+              </div>
+              <div>
+                <p className="text-2xl font-bold text-gray-800">
+                  {dashData.patients}
+                </p>
+                <p className="text-gray-500">Patients</p>
+              </div>
             </div>
           </div>
         </div>
 
-        <div className="bg-white">
-          <div
-            className="flex items-center gap2.5
-         px-4 mt-10 rounded-t border"
-          >
-            <img src="" alt="" />
-            <p className="font-semibold">Latest Bookings</p>
+        <div className="bg-white rounded-xl shadow-xl p-6 space-y-6">
+          <div className="flex items-center gap-3 border-b pb-4">
+            <img
+              className="w-10 h-10 rounded-full"
+              src={dashData?.latestAppointments[0]?.userData?.image || ""}
+              alt="Patient"
+            />
+            <p className="text-xl font-semibold text-gray-700">
+              Latest Bookings
+            </p>
           </div>
 
-          <div className="pt-4 border border-t-0">
+          <div className="space-y-4">
             {dashData.latestAppointments.map((item, index) => (
               <div
-                className="flex items-center px-6 py-3 gap-3 hover:bg-gray-100"
                 key={index}
+                className="flex items-center justify-between p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-all"
               >
-                <img
-                  className="rounded-full w-10"
-                  src={item.userData.image}
-                  alt=""
-                />
-                <div className="flex-1 text-sm">
-                  <p className="text-gray-800 font-medium">
-                    {item.userData.name}
-                  </p>
-                  <p className="text-gray-600">
-                    {slotDateFormat(item.slotDate)}
-                  </p>
-                </div>
-                <button className="border border-gray-400 text-center px-5 py-2 rounded-full bg-blue-500 text-white mr-5" >{item.appointmentType}</button>
-                {item.cancelled ? (
-                  <p className="text-red-400 text-xs font-medium">Cancelled</p>
-                ) : item.isCompleted ? (
-                  <p className="text-green-400 text-xs font-medium">
-                    Completed
-                  </p>
-                ) : (
-                  <div className="flex text-green-100 gap-1">
-                    <IconButton
-                      style={{ backgroundColor: "#fee2e2" }}
-                      onClick={() => cancelAppointment(item._id)}
-                    >
-                      <CloseIcon />
-                    </IconButton>
-
-                    <IconButton
-                      style={{ backgroundColor: "#dcefe7" }}
-                      onClick={() => completeAppointment(item._id)}
-                    >
-                      <CheckIcon />
-                    </IconButton>
+                <div className="flex items-center space-x-4">
+                  <img
+                    className="w-12 h-12 rounded-full"
+                    src={item.userData.image}
+                    alt="Patient"
+                  />
+                  <div>
+                    <p className="text-gray-800 font-medium">
+                      {item.userData.name}
+                    </p>
+                    <p className="text-sm text-gray-500">
+                      {slotDateFormat(item.slotDate)}
+                    </p>
                   </div>
-                )}
+                </div>
+
+                <button className="px-4 py-2 text-xs font-semibold rounded-full bg-blue-500 text-white">
+                  {item.appointmentType}
+                </button>
+
+                <div className="flex items-center space-x-3">
+                  {item.cancelled ? (
+                    <p className="text-red-400 text-xs font-medium">
+                      Cancelled
+                    </p>
+                  ) : item.isCompleted ? (
+                    <p className="text-green-400 text-xs font-medium">
+                      Completed
+                    </p>
+                  ) : (
+                    <div className="flex space-x-3">
+                      <IconButton
+                        style={{ backgroundColor: "#fee2e2" }}
+                        onClick={() => cancelAppointment(item._id)}
+                      >
+                        <CloseIcon />
+                      </IconButton>
+
+                      <IconButton
+                        style={{ backgroundColor: "#dcefe7" }}
+                        onClick={() => completeAppointment(item._id)}
+                      >
+                        <CheckIcon />
+                      </IconButton>
+                    </div>
+                  )}
+                </div>
               </div>
             ))}
           </div>

@@ -9,101 +9,103 @@ import { DoctorContext } from "../context/doctorContext";
 
 export const SideBar = () => {
   const { atoken } = useContext(AdminContext);
-  const { dtoken } = useContext(DoctorContext)
+  const { dtoken } = useContext(DoctorContext);
 
   return (
-    <div className="min-h-screen bg-white border-r">
-      {atoken && (
-        <ul className="mt-5 text-[#515151]">
-          <NavLink
-            to="/admin-dashboard"
-            className={({ isActive }) =>
-              `flex items-center gap-3 py-3.5 px-3 md:px-9 md:w-72 cursor-pointer ${
-                isActive ? " bg-[#F2F3FF] border-r-4 border-primary" : ""
-              } `
-            }
-          >
-            <DashboardIcon />
-            <p className="hidden md:block">Dashboard</p>
-          </NavLink>
+    <div className="min-h-screen bg-white flex">
+      <div className="w-16 md:w-64 bg-white border-r shadow-lg transition-all duration-300 ease-in-out">
+        {atoken && (
+          <ul className="mt-5 space-y-4">
+            <NavLink
+              to="/admin-dashboard"
+              className={({ isActive }) =>
+                `flex items-center gap-4 py-4 px-4 md:px-6 cursor-pointer transition-all duration-300 ease-in-out ${
+                  isActive ? "bg-[#F2F3FF] border-l-4 border-primary" : ""
+                }`
+              }
+            >
+              <DashboardIcon />
+              <span className="hidden md:inline-block">Dashboard</span>
+            </NavLink>
 
-          <NavLink
-            to="/all-appointments"
-            className={({ isActive }) =>
-              `flex items-center gap-3 py-3.5 px-3 md:px-9 md:w-72 cursor-pointer ${
-                isActive ? " bg-[#F2F3FF] border-r-4 border-primary" : ""
-              } `
-            }
-          >
-            <DateRangeIcon />
-            <p className="hidden md:block">Appointments</p>
-          </NavLink>
+            <NavLink
+              to="/all-appointments"
+              className={({ isActive }) =>
+                `flex items-center gap-4 py-4 px-4 md:px-6 cursor-pointer transition-all duration-300 ease-in-out ${
+                  isActive ? "bg-[#F2F3FF] border-l-4 border-primary" : ""
+                }`
+              }
+            >
+              <DateRangeIcon />
+              <span className="hidden md:inline-block">Appointments</span>
+            </NavLink>
 
-          <NavLink
-            to="/add-doctor"
-            className={({ isActive }) =>
-              `flex items-center gap-3 py-3.5 px-3 md:px-9 md:w-72 cursor-pointer ${
-                isActive ? " bg-[#F2F3FF] border-r-4 border-primary" : ""
-              } `
-            }
-          >
-            <AddCircleIcon />
-            <p className="hidden md:block">Add Doctor</p>
-          </NavLink>
+            <NavLink
+              to="/add-doctor"
+              className={({ isActive }) =>
+                `flex items-center gap-4 py-4 px-4 md:px-6 cursor-pointer transition-all duration-300 ease-in-out ${
+                  isActive ? "bg-[#F2F3FF] border-l-4 border-primary" : ""
+                }`
+              }
+            >
+              <AddCircleIcon />
+              <span className="hidden md:inline-block">Add Doctor</span>
+            </NavLink>
 
-          <NavLink
-            to="/doctor-list"
-            className={({ isActive }) =>
-              `flex items-center gap-3 py-3.5 px-3 md:px-9 md:w-72 cursor-pointer ${
-                isActive ? " bg-[#F2F3FF] border-r-4 border-primary" : ""
-              } `
-            }
-          >
-            <PeopleAltIcon />
-            <p className="hidden md:block">Doctors List</p>
-          </NavLink>
-        </ul>
-      )}
+            <NavLink
+              to="/doctor-list"
+              className={({ isActive }) =>
+                `flex items-center gap-4 py-4 px-4 md:px-6 cursor-pointer transition-all duration-300 ease-in-out ${
+                  isActive ? "bg-[#F2F3FF] border-l-4 border-primary" : ""
+                }`
+              }
+            >
+              <PeopleAltIcon />
+              <span className="hidden md:inline-block">Doctors List</span>
+            </NavLink>
+          </ul>
+        )}
 
-{dtoken && (
-        <ul className="mt-5 text-[#515151]">
-          <NavLink
-            to="/doctor-dashboard"
-            className={({ isActive }) =>
-              `flex items-center gap-3 py-3.5 px-3 md:px-9 md:w-72 cursor-pointer ${
-                isActive ? " bg-[#F2F3FF] border-r-4 border-primary" : ""
-              } `
-            }
-          >
-            <DashboardIcon />
-            <p className="hidden md:block">Dashboard</p>
-          </NavLink>
+        {dtoken && (
+          <ul className="mt-5 space-y-4">
+            <NavLink
+              to="/doctor-dashboard"
+              className={({ isActive }) =>
+                `flex items-center gap-4 py-4 px-4 md:px-6 cursor-pointer transition-all duration-300 ease-in-out ${
+                  isActive ? "bg-[#F2F3FF] border-l-4 border-primary" : ""
+                }`
+              }
+            >
+              <DashboardIcon />
+              <span className="hidden md:inline-block">Dashboard</span>
+            </NavLink>
 
-          <NavLink
-            to="/doctor-appointments"
-            className={({ isActive }) =>
-              `flex items-center gap-3 py-3.5 px-3 md:px-9 md:w-72 cursor-pointer ${
-                isActive ? " bg-[#F2F3FF] border-r-4 border-primary" : ""
-              } `
-            }
-          >
-            <DateRangeIcon />
-            <p className="hidden md:block">Appointments</p>
-          </NavLink>
+            <NavLink
+              to="/doctor-appointments"
+              className={({ isActive }) =>
+                `flex items-center gap-4 py-4 px-4 md:px-6 cursor-pointer transition-all duration-300 ease-in-out ${
+                  isActive ? "bg-[#F2F3FF] border-l-4 border-primary" : ""
+                }`
+              }
+            >
+              <DateRangeIcon />
+              <span className="hidden md:inline-block">Appointments</span>
+            </NavLink>
 
-          <NavLink
-            to="/doctor-profile"
-            className={({ isActive }) =>
-              `flex items-center gap-3 py-3.5 px-3 md:px-9 md:w-72 cursor-pointer ${
-                isActive ? " bg-[#F2F3FF] border-r-4 border-primary" : ""
-              } `
-            }
-          >
-            <PeopleAltIcon />
-            <p className="hidden md:block">Doctors Profile</p>
-          </NavLink>
-        </ul>
-      )}
+            <NavLink
+              to="/doctor-profile"
+              className={({ isActive }) =>
+                `flex items-center gap-4 py-4 px-4 md:px-6 cursor-pointer transition-all duration-300 ease-in-out ${
+                  isActive ? "bg-[#F2F3FF] border-l-4 border-primary" : ""
+                }`
+              }
+            >
+              <PeopleAltIcon />
+              <span className="hidden md:inline-block">Doctors Profile</span>
+            </NavLink>
+          </ul>
+        )}
+      </div>
     </div>
   );
 };

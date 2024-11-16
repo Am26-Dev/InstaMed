@@ -6,7 +6,7 @@ import { AppContext } from "../../context/appContext";
 import CloseIcon from "@mui/icons-material/Close";
 import { IconButton } from "@mui/material";
 import CheckIcon from "@mui/icons-material/Check";
-import { Link } from "react-router-dom"
+import { Link } from "react-router-dom";
 
 export const DoctorAppointments = () => {
   const {
@@ -20,76 +20,98 @@ export const DoctorAppointments = () => {
 
   useEffect(() => {
     getAppointments();
-    console.log(appointments)
+    console.log(appointments);
   }, [dtoken]);
 
   return (
-    <div className="w-full max-w-6xl m-5">
-      <p className="mb-3 text-lg font-medium">All Appointments</p>
+    <div className="w-full max-w-6xl m-6">
+      <p className="text-2xl font-semibold mb-6">All Appointments</p>
 
-      <div className="bg-white border rounded text-sm max-h-[80vh] min-h[60vh] overflow-y-scroll">
-        <div className="max-sm:hidden grid grid-cols-[0.5fr_2fr_1fr_1fr_3fr_1fr_1fr_1fr] gap-1 py-3 px-6 border-b">
-          <p>#</p>
-          <p>Patient</p>
-          <p>Payment</p>
-          <p>Age</p>
-          <p>Date & Time</p>
-          <p>Appointment Type</p>
-          <p>Fees</p>
-          <p>Action</p>
+      <div className="bg-white rounded-xl shadow-lg p-5 overflow-y-auto max-h-[80vh]">
+        <div className="hidden sm:flex items-center justify-between py-3 px-6 bg-gray-100 border-b text-gray-600 text-sm font-semibold">
+          <p className="w-[4%]">#</p>
+          <p className="w-[20%]">Patient</p>
+          <p className="w-[12%]">Payment</p>
+          <p className="w-[8%]">Age</p>
+          <p className="w-[18%]">Date & Time</p>
+          <p className="w-[10%]">Appointment Type</p>
+          <p className="w-[8%]">Fees</p>
+          <p className="w-[10%]">Action</p>
         </div>
 
         {appointments.reverse().map((item, index) => (
           <div
-            className="flex flex-wrap justify-between max-sm:gap-5 max-sm:text-base sm:grid grid-cols-[0.5fr_2fr_1fr_1fr_3fr_1fr_1fr_1fr] gap-1 items-center text-gray-500 py-6 border-b hover:bg-gray-100"
             key={index}
+            className="flex flex-wrap sm:flex-nowrap justify-between gap-4 p-4 mb-4 border-b bg-white rounded-lg shadow-md hover:bg-gray-50 transition-all"
           >
-            <p className="max-sm:hidden">{index + 1}</p>
-            <div className="flex items-center gap-2">
+            <p className="sm:w-[4%] hidden sm:block">{index + 1}</p>
+
+            <div className="flex sm:w-[20%] items-center gap-4">
               <img
-                className="w-10 rounded-full"
+                className="w-12 h-12 rounded-full"
                 src={item.userData.image}
-                alt=""
+                alt={item.userData.name}
               />
-              <p>{item.userData.name}</p>
+              <p className="font-medium text-gray-700 truncate">
+                {item.userData.name}
+              </p>
             </div>
-            <div>
-              <p className="text-xs inline border border-primary px-2 rounded-full">
+
+            <div className="sm:w-[12%] text-xs">
+              <p
+                className={`inline border px-2 py-1 rounded-full ${
+                  item.payment
+                    ? "border-primary bg-primary text-white"
+                    : "border-gray-400"
+                }`}
+              >
                 {item.payment ? "ONLINE" : "CASH"}
               </p>
             </div>
-            <p className="max-sm:hidden">{calAge(item.userData.dob)}</p>
-            <p>
+
+            <p className="sm:w-[8%] hidden sm:block">
+              {calAge(item.userData.dob)}
+            </p>
+
+            <p className="sm:w-[18%] text-sm text-gray-600">
               {slotDateFormat(item.slotDate)}, {item.slotTime}
             </p>
-            <Link to={`/video/${item.docData.fixedId}`}>
-              <p className="border border-gray-400 text-center py-2 rounded-full mr-5 text-white bg-blue-500">{item.appointmentType}</p>
+
+            <Link
+              to={`/video/${item.docData.fixedId}`}
+              className="sm:w-[10%] py-2 px-4 border border-gray-400 rounded-full text-white bg-blue-500 text-center"
+            >
+              {item.appointmentType}
             </Link>
-            <p>
+
+            <p className="sm:w-[8%] text-sm text-gray-700">
               {currency}
               {item.amount}
             </p>
-            {item.cancelled ? (
-              <p className="text-red-400 text-xs font-medium">Cancelled</p>
-            ) : item.isCompleted ? (
-              <p className="text-green-400 text-xs font-medium">Completed</p>
-            ) : (
-              <div className="flex text-green-100 gap-1">
-                <IconButton
-                  style={{ backgroundColor: "#fee2e2" }}
-                  onClick={() => cancelAppointment(item._id)}
-                >
-                  <CloseIcon />
-                </IconButton>
 
-                <IconButton
-                  style={{ backgroundColor: "#dcefe7" }}
-                  onClick={() => completeAppointment(item._id)}
-                >
-                  <CheckIcon />
-                </IconButton>
-              </div>
-            )}
+            <div className="sm:w-[10%] flex gap-3 items-center">
+              {item.cancelled ? (
+                <p className="text-red-400 text-xs font-medium">Cancelled</p>
+              ) : item.isCompleted ? (
+                <p className="text-green-400 text-xs font-medium">Completed</p>
+              ) : (
+                <div className="flex gap-2">
+                  <IconButton
+                    style={{ backgroundColor: "#fee2e2" }}
+                    onClick={() => cancelAppointment(item._id)}
+                  >
+                    <CloseIcon />
+                  </IconButton>
+
+                  <IconButton
+                    style={{ backgroundColor: "#dcefe7" }}
+                    onClick={() => completeAppointment(item._id)}
+                  >
+                    <CheckIcon />
+                  </IconButton>
+                </div>
+              )}
+            </div>
           </div>
         ))}
       </div>

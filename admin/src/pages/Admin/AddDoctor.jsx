@@ -15,11 +15,11 @@ export const AddDoctor = () => {
   const [degree, setDegree] = useState("");
   const [locality, setLocality] = useState("");
   const [district, setDistrict] = useState("");
-  const [buildingnumber, setBuildingNumber] = useState("")
-  const [city, setCity] = useState("")
+  const [buildingnumber, setBuildingNumber] = useState("");
+  const [city, setCity] = useState("");
   const [state, setState] = useState("");
   const [country, setCountry] = useState("");
-  const [fixedId, setFixedId] = useState("")
+  const [fixedId, setFixedId] = useState("");
 
   const { atoken, backendUrl } = useContext(AdminContext);
 
@@ -43,49 +43,61 @@ export const AddDoctor = () => {
       formData.append("experience", exp);
       formData.append(
         "address",
-        JSON.stringify({buildingnumber: buildingnumber , locality: locality, district: district, city: city, state: state, country: country,  })
+        JSON.stringify({
+          buildingnumber: buildingnumber,
+          locality: locality,
+          district: district,
+          city: city,
+          state: state,
+          country: country,
+        })
       );
       formData.append("degree", degree);
       formData.append("fixedId", fixedId);
 
-      const { data } = await axios.post(backendUrl + "/admin/add-doctor", formData, {
-        headers: { atoken },
-      });
+      const { data } = await axios.post(
+        backendUrl + "/admin/add-doctor",
+        formData,
+        {
+          headers: { atoken },
+        }
+      );
       if (data.success) {
         toast.success(data.message);
-        setImg("")
-        setName("")
-        setEmail("")
-        setPassword("")
-        setAbout("")
-        setDegree("")
-        setLocality("")
-        setBuildingNumber("")
-        setCity("")
-        setState("")
-        setCountry("")
-        setDistrict("")
-        setFee("")
-        setFixedId("")
+        setImg("");
+        setName("");
+        setEmail("");
+        setPassword("");
+        setAbout("");
+        setDegree("");
+        setLocality("");
+        setBuildingNumber("");
+        setCity("");
+        setState("");
+        setCountry("");
+        setDistrict("");
+        setFee("");
+        setFixedId("");
       } else {
         toast.error(data.message);
       }
     } catch (e) {
       console.log(e);
-      toast.error(e.message)
+      toast.error(e.message);
     }
   };
 
   return (
     <form onSubmit={onSubmitHandler} className="m-5 w-full">
       <p className="mb-3 text-lg font-medium">Add Doctor</p>
+
       <div className="bg-white px-8 py-8 border rounded w-full max-w-4xl max-h-[80vh] overflow-y-scroll">
-        <div className="flex  items-center gap-4 mb-8 text-gray-500">
-          <label htmlFor="doc-img">
+        <div className="flex items-center justify-center mb-8 text-gray-500">
+          <label htmlFor="doc-img" className="cursor-pointer">
             <img
-              className="max-w-20  bg-gray-100 rounded-full cursor-pointer"
+              className="max-w-24 bg-gray-100 rounded-full"
               src={img ? URL.createObjectURL(img) : "/upload.png"}
-              alt=""
+              alt="Upload Doctor Image"
             />
           </label>
           <input
@@ -94,55 +106,53 @@ export const AddDoctor = () => {
             id="doc-img"
             hidden
           />
-          <p>
-            Upload doctor <br /> picture
-          </p>
+          <p className="mt-2 text-center">Upload Doctor Picture</p>
         </div>
 
-        <div className="flex flex-col lg:flex-row items-start gap-10 text-gray-600">
-          <div className="w-full lg:flex-1 felx flex-col gap-4">
-            <div className="flex-1 flex flex-col gap-1">
-              <p>Doctor name</p>
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 text-gray-600">
+          <div>
+            <div className="flex flex-col mb-4">
+              <label className="mb-1">Doctor Name</label>
               <input
-                className="border rounded px-4 py-2 mb-2"
+                className="border rounded px-4 py-2"
                 onChange={(e) => setName(e.target.value)}
                 value={name}
                 type="text"
-                placeholder="enter name"
+                placeholder="Enter name"
                 required
               />
             </div>
 
-            <div className="flex-1 flex flex-col gap-1">
-              <p>Doctor Email</p>
+            <div className="flex flex-col mb-4">
+              <label className="mb-1">Doctor Email</label>
               <input
-                className="border rounded px-4 py-2 mb-2"
+                className="border rounded px-4 py-2"
                 onChange={(e) => setEmail(e.target.value)}
                 value={email}
                 type="email"
-                placeholder="enter email"
+                placeholder="Enter email"
                 required
               />
             </div>
 
-            <div className="flex-1 flex flex-col gap-1">
-              <p>Doctor Password</p>
+            <div className="flex flex-col mb-4">
+              <label className="mb-1">Doctor Password</label>
               <input
-                className="border rounded px-4 py-2 mb-2"
+                className="border rounded px-4 py-2"
                 onChange={(e) => setPassword(e.target.value)}
                 value={password}
                 type="password"
-                placeholder="password"
+                placeholder="Enter password"
                 required
               />
             </div>
 
-            <div className="flex-1 flex flex-col gap-1 mb-2">
-              <p>Experience</p>
+            <div className="flex flex-col mb-4">
+              <label className="mb-1">Experience</label>
               <select
                 onChange={(e) => setExp(e.target.value)}
                 value={exp}
-                className="mb-2"
+                className="border rounded px-4 py-2"
               >
                 <option value="1 Year">1 Year</option>
                 <option value="2 Years">2 Years</option>
@@ -157,26 +167,26 @@ export const AddDoctor = () => {
               </select>
             </div>
 
-            <div className="flex-1 flex flex-col gap-1">
-              <p>Fee</p>
+            <div className="flex flex-col mb-4">
+              <label className="mb-1">Fee</label>
               <input
-                className="border rounded px-4 py-2 mb-2"
+                className="border rounded px-4 py-2"
                 onChange={(e) => setFee(e.target.value)}
                 value={fee}
                 type="number"
-                placeholder="fee"
+                placeholder="Enter fee"
                 required
               />
             </div>
           </div>
 
-          <div className="w-full flex flex-1 flex-col gap-4">
-            <div className="flex-1 flex flex-col gap-1">
-              <p>Speciality</p>
+          <div>
+            <div className="flex flex-col mb-4">
+              <label className="mb-1">Specialty</label>
               <select
                 onChange={(e) => setSpeciality(e.target.value)}
                 value={speciality}
-                className="mb-2"
+                className="border rounded px-4 py-2"
               >
                 <option value="General Physician">General Physician</option>
                 <option value="Gynecologist">Gynecologist</option>
@@ -187,95 +197,98 @@ export const AddDoctor = () => {
               </select>
             </div>
 
-            <div className="flex-1 flex flex-col gap-2">
-              <p>Education</p>
+            <div className="flex flex-col mb-4">
+              <label className="mb-1">Education</label>
               <input
-                className="border rounded px-4 py-2 mb-2"
+                className="border rounded px-4 py-2"
                 onChange={(e) => setDegree(e.target.value)}
                 value={degree}
                 type="text"
-                placeholder="Education"
+                placeholder="Enter education"
                 required
               />
             </div>
 
-            <div className="flex-1 flex flex-col gap-1">
-              <p>Address</p>
+            <div className="flex flex-col mb-4">
+              <label className="mb-1">Address</label>
               <input
-                className="border rounded px-4 py-2 mb-2"
+                className="border rounded px-4 py-2"
                 onChange={(e) => setBuildingNumber(e.target.value)}
                 value={buildingnumber}
                 type="text"
-                placeholder="building number"
+                placeholder="Building number"
                 required
               />
               <input
-                className="border rounded px-4 py-2 mb-2"
+                className="border rounded px-4 py-2 mt-2"
                 onChange={(e) => setLocality(e.target.value)}
                 value={locality}
                 type="text"
-                placeholder="locality"
+                placeholder="Locality"
                 required
               />
               <input
-                className="border rounded px-4 py-2 mb-2"
+                className="border rounded px-4 py-2 mt-2"
                 onChange={(e) => setDistrict(e.target.value)}
                 value={district}
                 type="text"
-                placeholder="district"
+                placeholder="District"
                 required
               />
               <input
-                className="border rounded px-4 py-2 mb-2"
+                className="border rounded px-4 py-2 mt-2"
                 onChange={(e) => setCity(e.target.value)}
                 value={city}
                 type="text"
-                placeholder="city"
+                placeholder="City"
                 required
               />
               <input
-                className="border rounded px-4 py-2 mb-2"
+                className="border rounded px-4 py-2 mt-2"
                 onChange={(e) => setState(e.target.value)}
                 value={state}
                 type="text"
-                placeholder="state"
+                placeholder="State"
                 required
               />
               <input
-                className="border rounded px-4 py-2 mb-2"
+                className="border rounded px-4 py-2 mt-2"
                 onChange={(e) => setCountry(e.target.value)}
                 value={country}
                 type="text"
-                placeholder="country"
+                placeholder="Country"
                 required
               />
             </div>
-            <div>
-              <p>Video call ID</p>
-              <input 
-                className="border w-full rounded px-4 py-2 mb-2"
+
+            <div className="flex flex-col mb-4">
+              <label className="mb-1">Video Call ID</label>
+              <input
+                className="border rounded px-4 py-2"
                 onChange={(e) => setFixedId(e.target.value)}
                 value={fixedId}
                 type="text"
-                placeholder="FixedId"
-                required/>
+                placeholder="Enter Fixed ID"
+                required
+              />
             </div>
           </div>
         </div>
 
-        <div>
-          <p className="mt-4 mb-2">About</p>
+        <div className="mb-6">
+          <label className="block mb-2">About</label>
           <textarea
             className="w-full px-4 pt-2 border rounded"
             onChange={(e) => setAbout(e.target.value)}
             value={about}
-            placeholder="write about doctor"
+            placeholder="Write about the doctor"
             rows={5}
           />
         </div>
+
         <button
           type="submit"
-          className="bg-primary text-white px-8 py-4 mt-4 rounded-full"
+          className="bg-primary text-white px-8 py-4 mt-4 rounded-full w-full lg:w-auto"
         >
           Add Doctor
         </button>
