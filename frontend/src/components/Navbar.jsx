@@ -19,7 +19,7 @@ const Navbar = () => {
       <img
         onClick={() => navigate("/")}
         className="w-16 cursor-pointer"
-        src={assets.logo}
+        src="/logo.webp"
         alt=""
       />
       <ul className="hidden md:flex items-start gap-5 font-medium">

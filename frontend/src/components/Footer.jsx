@@ -1,14 +1,23 @@
-import { assets } from "../assets/assets";
 import { Link } from "react-router-dom";
+
+
 const Footer = () => {
   return (
-    <div className="flex flex-col sm:grid grid-cols-[3fr_1fr_1fr] gap-14 my-10 mt-40 text-sm">
-      {/* {left section} */}
+    <div className="flex flex-col sm:grid grid-cols-[3fr_1fr_1fr] gap-14 my-10 mt-40 text-sm bg-blue-50 p-5">
+      {/* Left section */}
       <div>
-        <Link to="/">
-          <img onClick={() => {scrollTo(0,0)}} className="w-20 cursor-pointer mb-5" src={assets.logo} alt="" />
-        </Link>
-        <p className="w-full md:2/3 text-gray-600 leading-6">
+        <div className="flex items-center space-x-2 mb-3">
+          <Link to="/"> 
+            <img
+              onClick={() => scrollTo(0, 0)}
+              className="w-20 cursor-pointer"
+              src="/logo.webp"
+              alt="InstaMed Logo"
+            />
+          </Link>
+          <span className="text-xl font-semibold text-gray-800">InstaMed</span>
+        </div>
+        <p className="w-full md:w-2/3 text-gray-600 leading-6">
           Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quam
           officiis doloremque eius ea ratione totam esse consequuntur obcaecati
           culpa, ipsa natus ut neque sunt quisquam iusto earum, quibusdam modi
@@ -16,8 +25,8 @@ const Footer = () => {
           porro.
         </p>
       </div>
-
-      {/* {Center section} */}
+  
+      {/* Center section */}
       <div>
         <p className="text-xl font-medium mb-5">COMPANY</p>
         <ul className="flex flex-col gap-2 text-gray-600">
@@ -27,8 +36,8 @@ const Footer = () => {
           <li>Privacy policy</li>
         </ul>
       </div>
-
-      {/* {Right section} */}
+  
+      {/* Right section */}
       <div>
         <p className="text-xl font-medium mb-5">GET IN TOUCH</p>
         <ul className="flex flex-col gap-2 text-gray-600">
@@ -36,12 +45,12 @@ const Footer = () => {
           <li>instamedi@gmail.com</li>
         </ul>
       </div>
-
-      {/*copyright text*/}
+  
+      {/* Copyright text */}
       <div className="col-span-3">
         <hr />
         <p className="py-5 text-sm text-center">
-          Copyright 2024@ Prescripto - All Right Reserved.
+          Copyright 2024@ InstaMed - All Right Reserved.
         </p>
       </div>
     </div>

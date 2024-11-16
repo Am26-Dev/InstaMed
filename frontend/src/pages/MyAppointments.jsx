@@ -5,123 +5,216 @@ import { toast } from "react-toastify";
 import { Link } from "react-router-dom";
 
 const MyAppointments = () => {
-  const [appointments, setAppointments] = useState([])
+  const [appointments, setAppointments] = useState([]);
   const { backendUrl, token, getDoctorsData } = useContext(AppContext);
-  const months = ["","Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+  const months = [
+    "",
+    "Jan",
+    "Feb",
+    "Mar",
+    "Apr",
+    "May",
+    "Jun",
+    "Jul",
+    "Aug",
+    "Sep",
+    "Oct",
+    "Nov",
+    "Dec",
+  ];
 
   const slotDateFormat = (slotDate) => {
-
-    const dateArray = slotDate.split("_")
-    return dateArray[0]+ " " + months[Number(dateArray[1])]+ " " + dateArray[2]
-
-  }
+    const dateArray = slotDate.split("_");
+    return (
+      dateArray[0] + " " + months[Number(dateArray[1])] + " " + dateArray[2]
+    );
+  };
 
   const getUserAppointments = async () => {
- 
     try {
-      
-      const { data } = await axios.get(backendUrl + "/user/all-appo" , {headers: {token}})
-
-      if(data.success){
-        setAppointments(data.appointments.reverse())
-        // console.log(data.appointments)
-      }
-
-    } catch (e) {
-      console.log(e)
-      toast.error(e.message)
-    }
-
-  }
-
-  const cancelAppointment = async (appointmentId) => {
-
-    try {
-
-      const {data} = await axios.post(backendUrl + "/user/cancel-appo", {appointmentId}, {headers: {token}})
+      const { data } = await axios.get(backendUrl + "/user/all-appo", {
+        headers: { token },
+      });
 
       if (data.success) {
-        toast.success(data.message)
-        getUserAppointments()
-        getDoctorsData()
-      }else{
-        toast.error(data.message)
+        setAppointments(data.appointments.reverse());
+        // console.log(data.appointments)
       }
-
-
     } catch (e) {
-      console.log(e)
+      console.log(e);
+      toast.error(e.message);
     }
+  };
 
-  }
+  const cancelAppointment = async (appointmentId) => {
+    try {
+      const { data } = await axios.post(
+        backendUrl + "/user/cancel-appo",
+        { appointmentId },
+        { headers: { token } }
+      );
 
-  useEffect(()=>{
-    if(token){
-      getUserAppointments()
-      console.log(appointments.cancelled)
+      if (data.success) {
+        toast.success(data.message);
+        getUserAppointments();
+        getDoctorsData();
+      } else {
+        toast.error(data.message);
+      }
+    } catch (e) {
+      console.log(e);
     }
-  },[token])
+  };
 
+  useEffect(() => {
+    if (token) {
+      getUserAppointments();
+      console.log(appointments.cancelled);
+    }
+  }, [token]);
+
+  const deleteAppointment = async (appointmentId) => {
+    try {
+      const { data } = await axios.post(
+        backendUrl + "/user/delete-appo",
+        { appointmentId },
+        { headers: { token } }
+      );
+
+      if (data.success) {
+        toast.success(data.message);
+        getUserAppointments();
+        getDoctorsData();
+      } else {
+        toast.error(data.message);
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  useEffect(() => {
+    if (token) {
+      getUserAppointments();
+      console.log(appointments);
+    }
+  }, [token]);
 
   return (
     <div>
       <p className="pb-3 mt-12 font-medium text-zinc-700 border-b">
         My Appointments
       </p>
-      <div>
+      <div className="space-y-6">
         {appointments.slice(0, 10).map((item, index) => (
           <div
-            className="grid grid-cols-[1fr_2fr] gap-4 sm:flex sm:gap-6 py-2 border-b"
+            className="flex flex-col sm:flex-row bg-white shadow-md rounded-lg overflow-hidden border"
             key={index}
           >
-            <div>
-              <img className="w-32 bg-indigo-50" src={item.docData.image} alt="" />
-            </div>
-            <div className="flex-1 text-sm text-zinc-600">
-              <p className="text-neutral-800 font-semibold">{item.docData.name}</p>
-              <p>{item.docData.speciality}</p>
-              <p className="text-zinc-700 font-medium mt-1">Address:</p>
-              <p className="text-xs">{item.docData.address.buildingnumber}, {item.docData.address.locality}, {item.docData.address.district}</p>
-              <p className="text-xs">{item.docData.address.city}, {item.docData.address.country}</p> 
-              <p className="text-sm mt-1">
-                <span className="text-sm text-neutral-700 font-medium">
-                  Date & Time:
-                </span>
-                {slotDateFormat(item.slotDate)}| {item.slotTime}
-              </p>
-              <button className="px-4 py-2 bg-purple-200 text-gray-500 rounded-full">{item.appointmentType} Appointment</button>
-                <Link to={`/video/${item.docData.fixedId}`}>
-                  {
-                    item.appointmentType === "online" ? <div className="bg-primary text-white inline-block px-5 py-2 rounded-full ml-5">
-                      <p>Video callID:-<span>{item.docData.fixedId}</span></p>
-                    </div> : ""
-                  }
-                </Link>
+            {/* Left Section: Doctor Info */}
+            <div className="sm:w-1/3 p-5 bg-indigo-100 flex flex-col items-center">
+              <img
+                className="w-24 h-24 rounded-full object-cover border-4 border-white shadow-lg mb-3"
+                src={item.docData.image}
+                alt="Doctor"
+              />
+              <div className="text-center">
+                <p className="text-lg font-semibold text-indigo-800">
+                  {item.docData.name}
+                </p>
+                <p className="text-sm text-indigo-600 mt-1">
+                  {item.docData.speciality}
+                </p>
+              </div>
+              <div className="mt-4 text-sm text-indigo-700 space-y-1">
+                <p className="flex items-center">
+                  📍{" "}
+                  <span className="ml-2">
+                    {item.docData.address.locality}, {item.docData.address.city}
+                  </span>
+                </p>
+                <p className="flex items-center">
+                  🌍{" "}
+                  <span className="ml-2">{item.docData.address.country}</span>
+                </p>
+              </div>
             </div>
 
-            <div>
-            </div>
+            {/* Right Section: Appointment Info & Actions */}
+            <div className="sm:w-2/3 p-5 flex flex-col justify-between relative">
+              {/* Adding a subtle background pattern on the right section */}
+              <div className="absolute inset-0 bg-gradient-to-r from-indigo-100 via-indigo-200 to-indigo-300 opacity-50 z-0"></div>
 
-            <div className="flex flex-col gap-2 justify-end">
-              {
-                !item.cancelled && item.payment && !item.isCompleted && <button className="sm:min-w-48 py-2 border rounded text-stone-500 bg-indigo-50">Paid</button>
-              }
-              {
-                !item.cancelled && !item.payment && !item.isCompleted && <button className="text-sm text-center sm:min-w-48 py-2 border rounded hover:bg-primary hover:text-white transition-all duration-200">
-                Pay online
-              </button>
-              }
-              
-              {
-                !item.cancelled && !item.isCompleted && <button onClick={() => cancelAppointment(item._id)} className="text-sm text-center sm:min-w-48 py-2 border rounded hover:bg-red-600 hover:text-white transition-all duration-200">
-                Cancel apointment
-              </button>
-              }
-              { 
-                item.cancelled && !item.isCompleted && <button className="sm:minw-48 py-2 px-4 border border-red-500 text-red-500">Appointment cancelled</button>
-              }{
-                item.isCompleted && <button className="sm:min-w-48 py-2 border border-green-500 rounded text-green-500">Completed</button>
-              }
+              <div className="z-10">
+                {/* Appointment Details */}
+                <div>
+                  <p className="text-sm font-medium text-zinc-700">
+                    Date & Time:{" "}
+                    <span className="font-semibold">
+                      {slotDateFormat(item.slotDate)} | {item.slotTime}
+                    </span>
+                  </p>
+                  <span
+                    className={`px-3 py-1 mt-2 text-xs rounded-full inline-block ${
+                      item.appointmentType === "in-person"
+                        ? "bg-purple-100 text-purple-700"
+                        : "bg-blue-100 text-blue-700"
+                    }`}
+                  >
+                    {item.appointmentType} Appointment
+                  </span>
+                </div>
+
+                {/* Video Call Section */}
+                {item.appointmentType === "online" && (
+                  <Link
+                    to={`/video/${item.docData.fixedId}`}
+                    className="mt-4 bg-blue-100 text-blue-700 px-4 py-2 rounded-lg shadow text-sm inline-block"
+                  >
+                    🔗 Join Video Call: {item.docData.fixedId}
+                  </Link>
+                )}
+
+                {/* Action Buttons */}
+                <div className="mt-5 flex flex-wrap gap-3">
+                  {!item.cancelled && item.payment && !item.isCompleted && (
+                    <button className="py-2 px-4 bg-green-100 text-green-700 rounded border">
+                      Paid
+                    </button>
+                  )}
+                  {!item.cancelled && !item.payment && !item.isCompleted && (
+                    <button className="py-2 px-4 bg-indigo-100 text-indigo-700 hover:bg-indigo-200 rounded transition-all">
+                      Pay Online
+                    </button>
+                  )}
+                  {!item.cancelled && !item.isCompleted && (
+                    <button
+                      onClick={() => cancelAppointment(item._id)}
+                      className="py-2 px-4 bg-red-100 text-red-700 hover:bg-red-200 rounded transition-all"
+                    >
+                      Cancel Appointment
+                    </button>
+                  )}
+                  {item.cancelled && (
+                    <button className="py-2 px-4 bg-gray-100 text-gray-600 rounded border">
+                      Appointment Cancelled
+                    </button>
+                  )}
+                  {item.isCompleted && (
+                    <button className="py-2 px-4 bg-green-100 text-green-700 rounded border">
+                      Completed
+                    </button>
+                  )}
+                  {item.cancelled && (
+                    <button
+                      onClick={() => deleteAppointment(item._id)}
+                      className="py-2 px-4 bg-red-100 text-red-700 rounded border"
+                    >
+                      Delete Appointment
+                    </button>
+                  )}
+                </div>
+              </div>
             </div>
           </div>
         ))}

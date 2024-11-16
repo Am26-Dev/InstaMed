@@ -1,13 +1,14 @@
+import ArticleBanner from '../components/Article'
 import { Banner } from '../components/Banner'
 import Header from '../components/header'
-import SpecialityMenu from '../components/SpecialityMenu'
 import TopDoctors from '../components/TopDoctors'
 
 const Home = () => {
     return (
         <div>
             <Header />
-            <SpecialityMenu />
+            {/* <SpecialityMenu /> */}
+            <ArticleBanner />
             <TopDoctors />
             <Banner />
         </div>

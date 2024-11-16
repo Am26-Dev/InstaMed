@@ -273,6 +273,29 @@ const cancelAppointments = async (req, res) => {
     }
 }
 
+const deleteAppointment = async (req, res) => {
+
+    try {
+        
+        const { userId, appointmentId } = req.body;
+
+        const appointmentData = await appointmentModel.findById(appointmentId)
+
+        if (appointmentData.userId !== userId) {
+            return  res.json({success: false, message: "unauthorized action"})
+        }
+
+        await appointmentModel.findByIdAndDelete(appointmentId)
+
+        res.json({success: true, message:"appointment deleted"})
+
+    } catch (e) {
+        console.log(e)
+        return res.json({success: false, message: e.message})
+    }
+
+}
+
 // const razorparInstance = new razorpay({
 //     key_id: "" ,
 //     key_secret: "" ,
@@ -295,4 +318,4 @@ const cancelAppointments = async (req, res) => {
 
 // }
 
-export {loginUser, registerUser, getProfile, updateProfile, bookAppointment, cancelAppointments, listAllAppointments};
+export {loginUser, registerUser, getProfile, updateProfile, bookAppointment, cancelAppointments, listAllAppointments, deleteAppointment};
