@@ -152,7 +152,7 @@ const Appointment = () => {
               {docInfo.degree} - {docInfo.speciality}
             </p>
             <p className="text-lg text-gray-500">
-              {docInfo.experience} years of experience
+              {docInfo.experience} of experience
             </p>
 
     
