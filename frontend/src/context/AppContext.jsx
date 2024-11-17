@@ -2,12 +2,13 @@ import { createContext, useEffect } from "react";
 import axios from "axios"
 import { useState } from "react";
 import {toast} from "react-toastify"
+import CurrencyRupeeIcon from '@mui/icons-material/CurrencyRupee'; 
 
 
 export const AppContext = createContext()
 
 const AppContextProvider = (props) => {
-    const currencySymbol = '$'
+    const currencySymbol = <CurrencyRupeeIcon />
     const backendUrl = import.meta.env.VITE_BACKEND_URL;
     const [doctors, setDoctors ] = useState([])
     const [token, setToken] = useState(localStorage.getItem("token") ? localStorage.getItem("token") : "")

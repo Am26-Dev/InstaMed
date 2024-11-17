@@ -10,10 +10,9 @@ const About = () => {
             <div className="my-10 flex justify-center">
             <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-4xl border border-blue-500">
                 <div className="flex flex-col gap-6 text-sm text-gray-600">
-                <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Soluta, incidunt quod. Neque delectus consequuntur quos ea rem voluptate in minus sunt aliquid id veniam, omnis itaque, error earum quo fuga?</p>
-                <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Dolore, explicabo qui. Nesciunt corporis quidem provident omnis? Eum tempore necessitatibus culpa provident doloremque magnam, fuga beatae aliquam similique ducimus! Labore voluptate non necessitatibus sapiente pariatur autem fuga amet tempora reprehenderit nihil.</p>
+                <p>Our app is designed to make healthcare more accessible and convenient, especially for people in remote or underserved areas.With options for video consultations for minor issues and in-person visits for critical needs, we aim to bridge the gap between patients and healthcare providers. Integrated with real-time mapping, our app helps users find nearby hospitals, book appointments, and make secure online payments—all in one place. </p>
                 <p className="text-gray-800 font-semibold">Our Vision</p>
-                <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Laudantium quis temporibus commodi, magnam eveniet minima.</p>
+                <p>Our mission is to empower individuals with easy access to medical support, regardless of location, and improve the healthcare experience for everyone.</p>
                 </div>
             </div>
         </div>

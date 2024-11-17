@@ -1,4 +1,5 @@
 import { createContext } from "react";
+import CurrencyRupeeIcon from '@mui/icons-material/CurrencyRupee'; 
 
 export const AppContext = createContext();
 
@@ -6,7 +7,7 @@ export const AppContext = createContext();
 
 const AppContextProvider = (props) => {
 
-    const currency = "$"
+    const currency = <CurrencyRupeeIcon />
     const calAge = (dob) => {
 
         const today = new Date()

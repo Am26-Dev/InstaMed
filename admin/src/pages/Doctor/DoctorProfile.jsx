@@ -90,7 +90,8 @@ export const DoctorProfile = () => {
                   {currency}
                   {isEdit ? (
                     <input
-                      className="bg-gray-100 border border-gray-300 rounded-lg py-1 px-2 ml-2"
+                      // eslint-disable-next-line no-irregular-whitespace
+                      className={`${isEdit ? "border-primary bg-indigo-200" : "border-gray-300 " } bg-gray-100 border  rounded-lg py-1 px-2 ml-2`}
                       type="number"
                       value={profileData.fees}
                       onChange={(e) =>
@@ -120,7 +121,7 @@ export const DoctorProfile = () => {
                 ].map((field) => (
                   <div key={field}>
                     <input
-                      className="bg-gray-100 border border-gray-300 rounded-lg py-1 px-2 w-full"
+                      className={`${isEdit ? "border-primary bg-indigo-200" : "border-gray-300"} bg-gray-100 border rounded-lg py-1 px-2 w-full`}
                       type="text"
                       value={profileData.address[field]}
                       onChange={(e) =>
