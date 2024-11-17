@@ -10,9 +10,7 @@ const ArticleBanner = () => {
             Latest <em className="text-blue-600">Articles</em>
           </h2>
           <p className="text-gray-700 max-w-xl mx-auto">
-            Lorem ipsum dolor amet consectetur adipisicing eliteiuim sete
-            eiusmod tempor incididunt ut labore etnalom dolore magna aliqua
-            udiminimate veniam quis norud.
+          Stay informed with the latest advancements in healthcare by exploring our curated selection of recent medical articles. Reading up-to-date medical research and insights can empower you to make informed health decisions, stay aware of new treatment options, and understand emerging health trends. 
           </p>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -51,7 +49,7 @@ const ArticleBanner = () => {
                 </a>
               </h3>
               <span className="text-gray-500 text-sm flex items-center mb-4">
-                <i className="lnr lnr-clock mr-2"></i>September 13, 2019
+                <i className="lnr lnr-clock mr-2"></i>November 17, 2024
               </span>
             </div>
           </div>
@@ -91,7 +89,7 @@ const ArticleBanner = () => {
                 </a>
               </h3>
               <span className="text-gray-500 text-sm flex items-center mb-4">
-                <i className="lnr lnr-clock mr-2"></i>September 13, 2019
+                <i className="lnr lnr-clock mr-2"></i>November 17, 2024
               </span>
             </div>
           </div>
@@ -130,7 +128,7 @@ const ArticleBanner = () => {
                 </a>
               </h3>
               <span className="text-gray-500 text-sm flex items-center mb-4">
-                <i className="lnr lnr-clock mr-2"></i>September 13, 2019
+                <i className="lnr lnr-clock mr-2"></i>November 17, 2024
               </span>
             </div>
           </div>
