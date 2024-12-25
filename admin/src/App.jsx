@@ -16,6 +16,7 @@ import { DoctorAppointments } from "./pages/Doctor/DoctorAppointments";
 import { DoctorProfile } from "./pages/Doctor/DoctorProfile";
 import { VideoMeetComponent } from "../../frontend/src/pages/videoMeet";
 
+
 const App = () => {
   const { atoken } = useContext(AdminContext);
   const { dtoken } = useContext(DoctorContext);
