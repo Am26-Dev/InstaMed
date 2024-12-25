@@ -168,7 +168,7 @@ const MyAppointments = () => {
        
                 {item.appointmentType === "online" && (
                   <Link
-                    to={`/video/${item.docData.fixedId}`}
+                    to={`/meet/${item.docData.fixedId}`}
                     className="mt-4 bg-blue-100 text-blue-700 px-4 py-2 rounded-lg shadow text-sm inline-block"
                   >
                     🔗 Join Video Call: {item.docData.fixedId}

@@ -18,6 +18,8 @@ export const DoctorAppointments = () => {
   } = useContext(DoctorContext);
   const { calAge, slotDateFormat, currency } = useContext(AppContext);
 
+  const frontEndUrl = import.meta.env.VITE_FRONTEND_URL;
+
   useEffect(() => {
     getAppointments();
     console.log(appointments);
@@ -78,7 +80,7 @@ export const DoctorAppointments = () => {
             </p>
 
             <Link
-              to={`/video/${item.docData.fixedId}`}
+              to={`${frontEndUrl}/meet/${item.docData.fixedId}`}
               className="sm:w-[10%] py-2 px-4 border border-gray-400 rounded-full text-white bg-blue-500 text-center"
             >
               {item.appointmentType}

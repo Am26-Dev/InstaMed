@@ -37,7 +37,7 @@ const App = () => {
         <Route path='/my-appointments' element={<MyAppointments />}/>
         <Route path='/appointment/:docId' element={<Appointment />}/>
         <Route path="/nearby" element={<Nearby />} />
-        <Route path="/video/:url" element={<VideoMeetComponent />} />
+        <Route path="/meet/:url" element={<VideoMeetComponent />} />
       </Routes>
       {shouldShowNavbarFooter && <Footer />}
     </div>
